@@ -2,7 +2,7 @@
     <string name="app_name">Belajaryuk</string>
     <string name="app_full_name">Belajar Yuk</string>
     <string name="app_tag_line">&quot; Generasi berilmu akan menciptakan bangsa yang cerdas &quot;</string>
-    <string name="api_url">http://192.168.137.1:8000/</string>
+    <string name="api_url">http://192.168.100.4:8000/</string>
     <!-- Example -->
     <string name="example_name">Arif Luthfiansyah</string>
     <string name="example_nim">155150207111160</string>

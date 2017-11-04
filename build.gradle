@@ -1,0 +1,58 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "io.realm:realm-gradle-plugin:3.7.1"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// Define versions in a single place
+ext {
+    // Sdk and tools
+    minSdkVersion = 21
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+
+    // App dependencies
+    supportLibraryVersion = '25.3.1'
+    intuitsdpVersion = '1.0.4'
+    finestWebviewVersion = '1.2.7'
+    glideVersion = '3.7.0'
+    circleImageVersion = '2.1.0';
+    placeholderviewVersion = '0.6.1'
+    butterKnifeVersion = '8.7.0'
+    pagerIndicatorVersion = '2.4.1@aar'
+    placeholderviewVersion = '0.6.1'
+    thunderAnimationHelper = '-SNAPSHOT'
+
+    dagger2Version = '2.8'
+    rximagePickerVersion = '2.0.2'
+    rx2FastAndroidNetworking = '1.0.0'
+    rxjava2Version = '2.1.1'
+    rxandroidVersion = '2.0.1'
+    retrofitVersion = '2.3.0'
+    okhttpVersion = '3.8.1'
+
+    // Test dependencies
+    junitVersion = '4.12'
+    espressoVersion = '2.2.2'
+}

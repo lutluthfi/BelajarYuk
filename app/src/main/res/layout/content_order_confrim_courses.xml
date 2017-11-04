@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_4sdp"
+    android:layout_marginLeft="@dimen/_8sdp"
+    android:layout_marginRight="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_6sdp"
+    app:cardElevation="@dimen/_4sdp"
+    tools:context=".ui.belajaryuk.BelajaryukOrderConfirmActivity"
+    tools:showIn="@layout/content_belajaryuk_order_confirm">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+
+            <TextView
+                style="@style/MyBodyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/prompt_course" />
+
+            <TextView
+                android:id="@+id/tv_change_courses"
+                style="@style/MyBodyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/prompt_change"
+                android:textAllCaps="true"
+                android:textColor="@color/colorSoftYellow"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightGrey"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_courses"
+                style="@style/MyBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableStart="@drawable/ic_book"
+                android:drawableTint="@color/colorSoftOrange"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/prompt_course"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/tv_add_inform_courses"
+                style="@style/MyBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:drawableStart="@drawable/ic_edit"
+                android:drawableTint="@color/colorSoftLightBlue"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:text="@string/prompt_add_inform"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                tools:ignore="UnusedAttribute" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

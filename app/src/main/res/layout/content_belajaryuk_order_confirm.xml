@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/belajaryuk_order_confirm_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.belajaryuk.BelajaryukOrderConfirmActivity"
+    tools:showIn="@layout/activity_belajaryuk_order_confirm">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/content_order_confrim_courses" />
+
+            <include layout="@layout/content_order_confrim_session" />
+
+            <include layout="@layout/content_order_confrim_location" />
+
+            <include layout="@layout/content_order_confrim_payment_method" />
+
+            <include layout="@layout/content_order_confirm_payment_detail" />
+
+            <TextView
+                style="@style/MyCaptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/prompt_payment_policy" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_order_pengajar"
+        style="@style/MyBodyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:onClick="doOrderPengajar"
+        android:text="@string/order_pengajar"
+        android:textColor="@color/colorWhite" />
+</LinearLayout>

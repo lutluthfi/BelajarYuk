@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_icon_actionbar"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:src="@drawable/img_placeholder"
+        app:civ_border_color="@color/colorWhite"
+        app:civ_border_width="@dimen/_1sdp" />
+
+    <TextView
+        android:id="@+id/tv_title_actionbar"
+        style="@style/Title.Toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_icon_actionbar"
+        android:layout_toEndOf="@+id/iv_icon_actionbar"
+        android:text="@string/title_feature_belajaryuk" />
+
+    <TextView
+        android:id="@+id/tv_subtitle_actionbar"
+        style="@style/Subtitle.Toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_icon_actionbar"
+        android:layout_below="@+id/tv_title_actionbar"
+        android:layout_toEndOf="@+id/iv_icon_actionbar"
+        android:text="@string/title_feature_belajaryuk" />
+</RelativeLayout>

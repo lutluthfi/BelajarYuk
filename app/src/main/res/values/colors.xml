@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#1DA1F2</color>
+    <!-- Custom -->
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorWhite70">#BFFFFFFF</color>
+    <color name="colorBlack">@android:color/black</color>
+    <color name="colorBlack80">#80000000</color>
+    <color name="colorGrey">#E0E0E0</color>
+    <color name="colorLightGrey">#F5F5F5</color>
+    <color name="colorDarkGrey">#757575</color>
+    <color name="colorDeepDarkBlue">#1B2836</color>
+    <color name="colorDeepLightBlue">#0277BD</color>
+    <color name="colorSoftLightBlue">#64B5F6</color>
+    <color name="colorSoftTeal">#1ABC9C</color>
+    <color name="colorSoftGreen">#2ECC71</color>
+    <color name="colorSoftYellow">#F1C40F</color>
+    <color name="colorSoftOrange">#F39C12</color>
+    <color name="colorSoftRed">#E74C3C</color>
+    <color name="colorGreen">#FF4CAF50</color>
+    <!-- Intro slider -->
+    <color name="colorFillSlider">@color/colorWhite</color>
+    <color name="colorPageSlider">@color/colorGrey</color>
+    <color name="splashStartColor">#1976D2</color>
+    <color name="splashEndColor">#64B5F6</color>
+</resources>

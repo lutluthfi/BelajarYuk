@@ -1,0 +1,126 @@
+<resources>
+    <string name="app_name">Belajaryuk</string>
+    <string name="app_full_name">Belajar Yuk</string>
+    <string name="app_tag_line">&quot; Generasi berilmu akan menciptakan bangsa yang cerdas &quot;</string>
+    <string name="api_url">http://192.168.137.1:8000/</string>
+    <!-- Example -->
+    <string name="example_name">Arif Luthfiansyah</string>
+    <string name="example_nim">155150207111160</string>
+    <string name="example_email">lutluthfi@student.ub.ac.id</string>
+    <string name="example_university">Brawijaya University</string>
+    <string name="example_time">2017/12/17</string>
+    <string name="example_address">Jalan Ikan Tombro No 5B Kecamatan Lowokwaru, Malang</string>
+    <string name="example_city">Malang</string>
+    <string name="example_district">Lowokwaru</string>
+    <string name="example_phone">+62852 9062 4676</string>
+    <string name="example_number">99</string>
+    <string name="example_price">100.000</string>
+    <string name="prompt_rating">Rating</string>
+    <string name="prompt_review">Ulasan</string>
+    <string name="prompt_answer">Menjawab</string>
+    <string name="prompt_loading">Mohon tunggu..</string>
+    <string name="prompt_location">Lokasi</string>
+    <string name="prompt_payment_method">Metode Pembayaran</string>
+    <string name="prompt_payment_cash">Cash</string>
+    <string name="prompt_payment_transfer">Transfer</string>
+    <string name="prompt_title_cancel">Batal pesanan</string>
+    <string name="prompt_total_price">Total Pembayaran</string>
+    <string name="prompt_cancel">Apakah anda yakin ingin membatalkan pesanan ini?</string>
+    <string name="prompt_payment_policy">
+        Harga di atas dapat berubah jika kamu membuat perubahan pesanan atau
+        jika pengajar merubah pesanan
+    </string>
+    <string name="title">
+        Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan
+        dan penataan huruf atau typesetting.
+    </string>
+    <string name="lorem">
+        Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan
+        dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an,
+        saat seorang tukang cetak yang tidak dikenal mengambil sebuah kumpulan teks
+        dan mengacaknya untuk menjadi sebuah buku contoh huruf.
+    </string>
+    <!-- Title Activity -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_belajaryuk">BelajaryukActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_belajaryuk_order">BelajaryukOrderActivity</string>
+    <string name="title_activity_belajaryuk_order_confirm">BelajaryukOrderConfirmActivity</string>
+    <string name="title_activity_bacayuk">BacayukActivity</string>
+    <string name="title_activity_kesiniyuk">KesiniyukActivity</string>
+    <string name="title_activity_detail_bacayuk">DetailBacayukActivity</string>
+    <string name="title_activity_detail_kesiniyuk">DetailKesiniyukActivity</string>
+    <string name="title_activity_donasiyuk">DonasiyukActivity</string>
+    <string name="title_fragment_home">Home</string>
+    <string name="title_fragment_history">History</string>
+    <string name="title_fragment_notification">Notifcations</string>
+    <string name="title_fragment_profile">Profile</string>
+    <!-- Bottom nav -->
+    <string name="title_splash">Splash</string>
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
+    <string name="title_home">Home</string>
+    <string name="title_history">History</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
+    <!-- Button -->
+    <string name="prompt_next">Lanjut</string>
+    <string name="prompt_signup">Daftar</string>
+    <string name="prompt_signup_now">Belum punya akun? Daftar sekarang</string>
+    <string name="prompt_login">Masuk</string>
+    <string name="prompt_source">Sumber</string>
+    <string name="prompt_report">Laporkan</string>
+    <string name="prompt_copy_link">Salin url</string>
+    <string name="prompt_search">Cari</string>
+    <string name="prompt_show_full_profile">Lihat Profile Lengkap</string>
+    <string name="order_pengajar">Pesan Pengajar</string>
+    <string name="prompt_course">Mata Pelajaran</string>
+    <string name="prompt_teachs">Mengajar</string>
+    <string name="prompt_city">Kota</string>
+    <string name="prompt_district">Kecamatan</string>
+    <string name="prompt_yes">Iya</string>
+    <string name="prompt_no">Tidak</string>
+    <string name="prompt_yes_cancel">Terima kasih telah menggunakan aplikasi kami :)</string>
+    <string name="prompt_no_cancel">Terima kasih :)</string>
+    <string name="prompt_session">Sesi Belajar</string>
+    <string name="prompt_session_price">Rp/Sesi</string>
+    <string name="prompt_change">Ubah</string>
+    <string name="prompt_add_inform">tambah keterangan</string>
+    <string name="prompt_payment_detail">Rincian Pembayaran</string>
+    <!-- Content intro slider -->
+    <string name="head_1">Kursus private</string>
+    <string name="body_1">
+        Panggil pengajar pilihanmu dan mereka akan datang segera ke rumah
+    </string>
+    <string name="head_2">Diskusi bersama teman</string>
+    <string name="body_2">
+        Diskusikan tugas sekolahmu di sini bersama teman-temanmu se-Indonesia!
+    </string>
+    <string name="head_3">Berbagi dengan sesama</string>
+    <string name="body_3">
+        Bantuan apapun yang kamu berikan akan sangat berguna oleh teman-teman kita yang membutuhkan
+    </string>
+    <!-- Login & Register -->
+    <string name="welcome">Selamat Datang</string>
+    <string name="prompt_name">Nama</string>
+    <string name="prompt_address">Alamat</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_retype_password">Retype password</string>
+    <string name="prompt_handphone">Handphone</string>
+    <string name="error_invalid_email">Format email salah</string>
+    <string name="error_invalid_handphone">Jumlah nomor handphone kurang</string>
+    <string name="error_invalid_password">Password tidak aman</string>
+    <string name="error_incorrect_password">Password salah</string>
+    <string name="error_field_required">Harap isi bidang ini</string>
+    <string name="already_have_account">Sudah punya akun? Yuk!</string>
+    <!-- Title App Feature -->
+    <string name="title_feature_belajaryuk">Belajar Yuk</string>
+    <string name="title_feature_diskusiyuk">Diskusi Yuk</string>
+    <string name="title_feature_donasiyuk">Donasi Yuk</string>
+    <string name="title_feature_bacayuk">Baca Yuk</string>
+    <string name="title_feature_kesiniyuk">Kesini Yuk</string>
+    <string name="title_feature_belajaryuk_order">Pesan Pengajar</string>
+</resources>

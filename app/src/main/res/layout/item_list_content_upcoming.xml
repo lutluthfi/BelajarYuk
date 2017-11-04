@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_feature_upcoming"
+    android:layout_width="@dimen/_216sdp"
+    android:layout_height="@dimen/_84sdp"
+    android:layout_margin="@dimen/_4sdp"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/colorDeepDarkBlue"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:contentPadding="@dimen/_8sdp">
+
+    <TextView
+        style="@style/MyHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhite"
+        android:text="@string/title_feature_belajaryuk" />
+
+</android.support.v7.widget.CardView>

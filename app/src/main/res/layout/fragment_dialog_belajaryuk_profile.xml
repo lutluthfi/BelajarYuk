@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/_8sdp"
+    android:paddingRight="@dimen/_8sdp"
+    android:paddingTop="@dimen/_16sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_4sdp"
+            android:paddingLeft="@dimen/_4sdp"
+            android:paddingRight="@dimen/_4sdp"
+            tools:ignore="UselessParent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_photo_pengajar"
+                android:layout_width="@dimen/_52sdp"
+                android:layout_height="@dimen/_52sdp"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:src="@color/colorDarkGrey" />
+
+            <TextView
+                android:id="@+id/tv_name_pengajar"
+                style="@style/MyHeaderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_photo_pengajar"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/example_name" />
+
+            <TextView
+                android:id="@+id/tv_degree_pengajar"
+                style="@style/MyBodyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name_pengajar"
+                android:layout_toEndOf="@+id/iv_photo_pengajar"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/example_university"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/tv_city_pengajar"
+                style="@style/MyCaptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_degree_pengajar"
+                android:layout_toEndOf="@+id/iv_photo_pengajar"
+                android:maxLines="1"
+                android:text="@string/example_city" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_bio_pengajar"
+            style="@style/MyBodyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:paddingBottom="@dimen/_4sdp"
+            android:paddingLeft="@dimen/_4sdp"
+            android:paddingRight="@dimen/_4sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:text="@string/lorem" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_call_pengajar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/background_button_profile_pengajar"
+                android:backgroundTint="@color/colorWhite"
+                android:elevation="@dimen/_2sdp"
+                android:onClick="doCallPengajar"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/ic_phone"
+                android:tint="@color/colorGreen"
+                tools:ignore="ButtonStyle,ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/btn_email_pengajar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/background_button_profile_pengajar"
+                android:backgroundTint="@color/colorWhite"
+                android:elevation="@dimen/_2sdp"
+                android:onClick="doEmailPengajar"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/ic_email"
+                android:tint="@color/colorAccent"
+                tools:ignore="ButtonStyle,ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/btn_profile_pengajar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/background_button_profile_pengajar"
+                android:backgroundTint="@color/colorWhite"
+                android:elevation="@dimen/_2sdp"
+                android:onClick="openProfilePengajar"
+                android:padding="@dimen/_6sdp"
+                android:src="@drawable/ic_person"
+                android:tint="@color/colorSoftOrange"
+                tools:ignore="ButtonStyle,ContentDescription" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp"
+            tools:ignore="DisableBaselineAlignment">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_star"
+                    android:backgroundTint="@color/colorSoftYellow"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/prompt_rating" />
+
+                <TextView
+                    android:id="@+id/tv_rating_pengajar"
+                    style="@style/MyCaptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:maxLength="5"
+                    android:text="@string/example_number"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_rate_review"
+                    android:backgroundTint="@color/colorSoftGreen"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/prompt_review" />
+
+                <TextView
+                    android:id="@+id/tv_review_pengajar"
+                    style="@style/MyCaptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:maxLength="5"
+                    android:text="@string/example_number"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_chat"
+                    android:backgroundTint="@color/colorDeepLightBlue"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/prompt_answer" />
+
+                <TextView
+                    android:id="@+id/tv_answers_pengajar"
+                    style="@style/MyCaptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:maxLength="5"
+                    android:text="@string/example_number"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_monetization_on"
+                    android:backgroundTint="@color/colorSoftRed"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/prompt_session_price" />
+
+                <TextView
+                    android:id="@+id/tv_price_pengajar"
+                    style="@style/MyCaptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:maxLength="8"
+                    android:text="@string/example_price"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_order_pengajar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/background_button_profile_pengajar"
+            android:onClick="doOrderPengajar"
+            android:text="@string/order_pengajar"
+            android:textColor="@color/colorWhite"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/_16sdp"
+    android:paddingLeft="@dimen/_16sdp"
+    android:paddingRight="@dimen/_16sdp"
+    android:paddingTop="@dimen/_52sdp"
+    tools:context=".ui.signup.SignupActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_photo_user"
+        android:layout_width="@dimen/_114sdp"
+        android:layout_height="@dimen/_114sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/_8sdp"
+        android:elevation="@dimen/_2sdp"
+        android:onClick="doUploadUserPhoto"
+        android:src="@drawable/ic_profile_register"
+        app:civ_border_color="@color/colorDeepDarkBlue"
+        app:civ_border_width="@dimen/_2sdp"
+        tools:ignore="ContentDescription" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_photo_user"
+        android:layout_marginTop="@dimen/_minus48sdp"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:contentPaddingTop="@dimen/_48sdp">
+
+        <LinearLayout
+            android:id="@+id/form_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/MyThemeRegisterEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edit_text_login"
+                android:drawableEnd="@drawable/ic_pencil"
+                android:hint="@string/prompt_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                tools:ignore="Deprecated" />
+
+            <EditText
+                android:id="@+id/et_handphone"
+                style="@style/MyThemeRegisterEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edit_text_login"
+                android:drawableEnd="@drawable/ic_phone_iphone"
+                android:hint="@string/prompt_handphone"
+                android:inputType="phone"
+                android:maxLines="1"
+                tools:ignore="Deprecated" />
+
+            <EditText
+                android:id="@+id/et_address"
+                style="@style/MyThemeRegisterEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_edit_text_login"
+                android:drawableEnd="@drawable/ic_location_on"
+                android:hint="@string/prompt_address"
+                android:inputType="text"
+                android:maxLines="3"
+                tools:ignore="Deprecated" />
+
+            <Button
+                android:id="@+id/btn_next_register"
+                style="@style/MyThemeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:background="@drawable/background_button_login_splash"
+                android:onClick="doNextStepRegister"
+                android:text="@string/prompt_next"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tv_btn_login"
+            style="@style/MyBodyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:onClick="doLogin"
+            android:text="@string/already_have_account" />
+    </RelativeLayout>
+
+</RelativeLayout>

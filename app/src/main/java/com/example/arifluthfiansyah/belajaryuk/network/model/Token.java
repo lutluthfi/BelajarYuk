@@ -21,6 +21,12 @@ public class Token {
     @SerializedName("refresh_token")
     @Expose
     private String refreshToken;
+    @SerializedName("error")
+    @Expose
+    private String error;
+    @SerializedName("message")
+    @Expose
+    private String message;
 
     public String getTokenType() {
         return tokenType;
@@ -54,4 +60,19 @@ public class Token {
         this.refreshToken = refreshToken;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

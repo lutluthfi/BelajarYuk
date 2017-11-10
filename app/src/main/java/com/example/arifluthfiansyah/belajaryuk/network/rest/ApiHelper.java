@@ -6,10 +6,12 @@ import com.example.arifluthfiansyah.belajaryuk.network.model.Kegiatans;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajars;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
+import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -28,9 +30,14 @@ public interface ApiHelper {
     @POST("oauth/token")
     Flowable<Token> getTokenApiCall(@Body Passport passport);
 
+    @Headers("Accept: application/json")
+    @GET("api/v1/users")
+    Flowable<User> getUserApiCall(@Header("Authorization") String authorization);
+
     @GET("api/v1/pengajar")
     Flowable<Pengajars> getPengajarApiCall(
-            @Query("lokasi") String location, @Query("page") int page
+            @Query("lokasi") String location,
+            @Query("page") int page
     );
 
     @GET("api/v1/berita")

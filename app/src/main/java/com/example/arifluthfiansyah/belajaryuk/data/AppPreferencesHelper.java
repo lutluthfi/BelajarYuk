@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.belajaryuk.data.prefs;
+package com.example.arifluthfiansyah.belajaryuk.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,11 +9,12 @@ import android.content.SharedPreferences;
 
 public class AppPreferencesHelper {
 
-    //TODO Buat preference untuk sekali login saja
     //TODO Jangan lupa buat preference untuk token jg ya sob
     private static final String PREF_NAME = "BELAJARYUK";
-    private static final String PREF_KEY_IS_FIRST_TIME = "PREF_KEY_IS_FIRST_TIME";
-    private static final String PREF_KEY_PRELOAD_MAIN_ACTIVITY = "PREG_KEY_PRELOAD_MAIN_ACTIVITY";
+    private static final String PREF_KEY_IS_FIRST_TIME         = "PREF_KEY_IS_FIRST_TIME";
+    private static final String PREF_KEY_IS_LOGGED_IN          = "PREF_KEY_USER_ARE_LOGGED_IN";
+    private static final String PREF_KEY_USER_AUTHORIZATION    = "PREF_KEY_USER_AUTHORIZATION";
+    private static final String PREF_KEY_USER_LOCATION         = "PREF_KEY_USER_LOCATION";
     private static final String PREF_KEY_KEGIATANS_TOTAL_PAGES = "PREF_KEY_KEGIATANS_TOTAL_PAGES";
     private static final String PREF_KEY_KEGIATANS_TOTAL_ITEMS = "PREF_KEY_KEGIATANS_TOTAL_ITEMS";
     private static final String PREF_KEY_KEGIATANS_PAGE_NUMBER = "PREF_KEY_KEGIATANS_PAGE_NUMBER";
@@ -45,12 +46,28 @@ public class AppPreferencesHelper {
         return mPrefs.getBoolean(PREF_KEY_IS_FIRST_TIME, false);
     }
 
-    public void setPreloadMainActivity(boolean preload) {
-        mPrefs.edit().putBoolean(PREF_KEY_PRELOAD_MAIN_ACTIVITY, preload).apply();
+    public void setKeyUserAuthorization(String authorization) {
+        mPrefs.edit().putString(PREF_KEY_USER_AUTHORIZATION, "Bearer " + authorization).apply();
     }
 
-    public boolean getPreloadMainActivity() {
-        return mPrefs.getBoolean(PREF_KEY_PRELOAD_MAIN_ACTIVITY, false);
+    public String getUserAuthorization() {
+        return mPrefs.getString(PREF_KEY_USER_AUTHORIZATION, "");
+    }
+
+    public void setIsLoggedIn(boolean loggedIn) {
+        mPrefs.edit().putBoolean(PREF_KEY_IS_LOGGED_IN, loggedIn).apply();
+    }
+
+    public boolean getIsLoggedIn() {
+        return mPrefs.getBoolean(PREF_KEY_IS_LOGGED_IN, false);
+    }
+
+    public void setUserLocation(String location) {
+        mPrefs.edit().putString(PREF_KEY_USER_LOCATION, location).apply();
+    }
+
+    public String getUserLocation() {
+        return mPrefs.getString(PREF_KEY_USER_LOCATION, "");
     }
 
     public void setKegiatansTotalPages(int totalPages) {

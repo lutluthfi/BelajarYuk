@@ -6,17 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.R;
@@ -24,8 +19,6 @@ import com.example.arifluthfiansyah.belajaryuk.ui.bacayuk.BacayukActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.belajaryuk.BelajaryukActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.donasiyuk.DonasiyukActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.kesiniyuk.KesiniyukActivity;
-import com.example.arifluthfiansyah.belajaryuk.ui.splash.SplashPagerAdapter;
-import com.example.arifluthfiansyah.belajaryuk.ui.util.AnimationUtilFab;
 
 import java.util.ArrayList;
 import java.util.List;

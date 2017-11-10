@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.R;
-import com.example.arifluthfiansyah.belajaryuk.data.model.Profile;
+import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.ui.login.LoginActivity;
 import com.mlsdev.rximagepicker.RxImageConverters;
 import com.mlsdev.rximagepicker.RxImagePicker;
@@ -72,7 +72,7 @@ public class SignupProfileFragment extends Fragment {
     @BindView(R.id.progressBar)
     ProgressBar mProgressbar;
 
-    private Profile mProfile = new Profile();
+    private User mUser = new User();
     private Fragment mFragment = new SignupContactFragment();
 
     @Nullable
@@ -146,7 +146,7 @@ public class SignupProfileFragment extends Fragment {
                     public void onNext(@NonNull File f) {
                         onImagePicked(f);
                         Log.d(TAG, f.getName());
-                        mProfile.setPhoto(f.getName());
+                        mUser.setFoto(f.getName());
                     }
 
                     @Override
@@ -183,19 +183,18 @@ public class SignupProfileFragment extends Fragment {
         setErrorView(null);
 
         // Set handphone & email value
-        mProfile.setName(mNameEditText.getText().toString());
-        mProfile.setHandphone(mHandphoneEditText.getText().toString());
-        mProfile.setAddress(mAddressEditText.getText().toString());
+        mUser.setNama(mNameEditText.getText().toString());
+        mUser.setAlamat(mAddressEditText.getText().toString());
 
         // Check for a valid name.
-        if (mProfile.getName().isEmpty()) {
+        if (mUser.getNama().isEmpty()) {
             setErrorNameView(getString(R.string.error_field_required));
             focusView = mNameEditText;
             cancel = true;
         }
 
         // Check for a valid handphone number.
-        if (mProfile.getHandphone().isEmpty()) {
+        if (mUser.getNoTelp().isEmpty()) {
             setErrorHandphoneView(getString(R.string.error_field_required));
             focusView = mHandphoneEditText;
             cancel = true;
@@ -206,7 +205,7 @@ public class SignupProfileFragment extends Fragment {
         }
 
         // Check for a valid address.
-        if (mProfile.getAddress().isEmpty()) {
+        if (mUser.getAlamat().isEmpty()) {
             setErrorAddressView(getString(R.string.error_field_required));
             focusView = mAddressEditText;
             cancel = true;
@@ -217,8 +216,8 @@ public class SignupProfileFragment extends Fragment {
         } else {
             showProgress(true);
             sendDataToFragment(
-                    mFragment, mProfile.getName(), mProfile.getHandphone(),
-                    mProfile.getAddress(), mProfile.getPhoto()
+                    mFragment, mUser.getNama(), mUser.getNoTelp(),
+                    mUser.getAlamat(), mUser.getFoto()
             );
             String className = mFragment.getClass().getSimpleName();
             SignupActivity.commitTransactionFragment(mFragment, className);
@@ -258,7 +257,7 @@ public class SignupProfileFragment extends Fragment {
 
     //TODO Jangan lupa dibenerin validasinya
     private boolean isHandphoneValid() {
-        return mProfile.getHandphone().length() > 1;
+        return mUser.getNoTelp().length() > 1;
     }
 
     private void setErrorNameView(String message) {

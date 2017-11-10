@@ -66,8 +66,13 @@
         <item name="android:textSize">@dimen/_14sdp</item>
     </style>
 
-    <style name="MyThemeEditText" parent="@style/Widget.AppCompat.EditText">
+    <style name="MyThemeEditText">
         <item name="android:textSize">@dimen/_14sdp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="MyThemeBodyEditText">
+        <item name="android:textSize">@dimen/_12sdp</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 

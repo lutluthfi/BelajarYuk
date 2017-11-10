@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Arif Luthfiansyah on 29/10/2017.
  */
@@ -23,6 +26,12 @@ public class User implements Serializable{
     @SerializedName("no_telp")
     @Expose
     private String noTelp;
+    @SerializedName("provinsi")
+    @Expose
+    private String provinsi;
+    @SerializedName("kabupaten")
+    @Expose
+    private String kabupaten;
     @SerializedName("alamat")
     @Expose
     private String alamat;
@@ -72,6 +81,22 @@ public class User implements Serializable{
 
     public void setNoTelp(String noTelp) {
         this.noTelp = noTelp;
+    }
+
+    public String getProvinsi() {
+        return provinsi;
+    }
+
+    public void setProvinsi(String provinsi) {
+        this.provinsi = provinsi;
+    }
+
+    public String getKabupaten() {
+        return kabupaten;
+    }
+
+    public void setKabupaten(String kabupaten) {
+        this.kabupaten = kabupaten;
     }
 
     public String getAlamat() {

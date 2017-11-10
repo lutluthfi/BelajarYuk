@@ -2,7 +2,9 @@
     <string name="app_name">Belajaryuk</string>
     <string name="app_full_name">Belajar Yuk</string>
     <string name="app_tag_line">&quot; Generasi berilmu akan menciptakan bangsa yang cerdas &quot;</string>
-    <string name="api_url">http://192.168.100.4:8000/</string>
+    <string name="api_url">http://10.11.12.228:8000/</string>
+    <string name="api_header_accept">application/json</string>
+    <string name="api_client_secret">VxnMYBFLHbeMH3xUxlKwbhW6Wy9DKk1Po1vezRMH</string>
     <!-- Example -->
     <string name="example_name">Arif Luthfiansyah</string>
     <string name="example_nim">155150207111160</string>
@@ -42,6 +44,8 @@
     </string>
     <!-- Title Activity -->
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_slider">SliderActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_belajaryuk">BelajaryukActivity</string>
@@ -89,6 +93,9 @@
     <string name="prompt_change">Ubah</string>
     <string name="prompt_add_inform">tambah keterangan</string>
     <string name="prompt_payment_detail">Rincian Pembayaran</string>
+    <string name="prompt_change_photo">Ganti Foto</string>
+    <string name="prompt_save_profile">Simpan Profile</string>
+    <string name="prompt_logout">Keluar</string>
     <!-- Content intro slider -->
     <string name="head_1">Kursus private</string>
     <string name="body_1">
@@ -110,12 +117,16 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_retype_password">Retype password</string>
     <string name="prompt_handphone">Handphone</string>
+    <string name="prompt_province">Provinsi</string>
+    <string name="prompt_gender">Jenis Kelamin</string>
     <string name="error_invalid_email">Format email salah</string>
     <string name="error_invalid_handphone">Jumlah nomor handphone kurang</string>
-    <string name="error_invalid_password">Password tidak aman</string>
+    <string name="error_invalid_password">Password tidak valid</string>
     <string name="error_incorrect_password">Password salah</string>
     <string name="error_field_required">Harap isi bidang ini</string>
     <string name="already_have_account">Sudah punya akun? Yuk!</string>
+    <string name="error_failed_login">Gagal login</string>
+    <string name="error_failed_fetch_data">Gagal mengambil data</string>
     <!-- Title App Feature -->
     <string name="title_feature_belajaryuk">Belajar Yuk</string>
     <string name="title_feature_diskusiyuk">Diskusi Yuk</string>

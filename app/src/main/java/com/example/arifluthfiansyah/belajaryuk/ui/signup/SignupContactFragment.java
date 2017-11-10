@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.R;
-import com.example.arifluthfiansyah.belajaryuk.data.model.Profile;
+import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.ui.main.MainActivity;
 
 import java.io.File;
@@ -57,7 +57,7 @@ public class SignupContactFragment extends Fragment {
     @BindView(R.id.progressBar)
     ProgressBar mProgressbar;
 
-    private Profile mProfile = new Profile();
+    private User mUser = new User();
 
     @Nullable
     @Override
@@ -83,10 +83,6 @@ public class SignupContactFragment extends Fragment {
         String handphone = bundle.getString("handphoneKey");
         String address = bundle.getString("addressKey");
         String photo = bundle.getString("photoKey");
-        mProfile.setName(name);
-        mProfile.setHandphone(handphone);
-        mProfile.setAddress(address);
-        mProfile.setPhoto(photo);
         showToastMessage(name + " & " + handphone);
     }
 
@@ -96,11 +92,11 @@ public class SignupContactFragment extends Fragment {
     }
 
     private void setupPhotoUser() {
-        String photo = mProfile.getPhoto();
+        String photo = mUser.getFoto();
         if (photo != null && !photo.isEmpty()) {
             File file = new File(
                     getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                            + File.separator + mProfile.getPhoto()
+                            + File.separator + mUser.getFoto()
             );
             Glide.with(mContext)
                     .load(file)
@@ -116,28 +112,16 @@ public class SignupContactFragment extends Fragment {
         setErrorView(null);
 
         // Set email & password value
-        mProfile.setEmail(mEmailEditText.getText().toString());
-        mProfile.setPassword(mPasswordEditText.getText().toString());
+        mUser.setEmail(mEmailEditText.getText().toString());
 
         // Check for a valid email address.
-        if (mProfile.getEmail().isEmpty()) {
+        if (mUser.getEmail().isEmpty()) {
             setErrorEmailView(getString(R.string.error_field_required));
             focusView = mEmailEditText;
             cancel = true;
         } else if (!isEmailValid()) {
             setErrorEmailView(getString(R.string.error_invalid_email));
             focusView = mEmailEditText;
-            cancel = true;
-        }
-
-        // Check for a valid password
-        if (mProfile.getPassword().isEmpty()) {
-            setErrorPasswordView(getString(R.string.error_field_required));
-            focusView = mPasswordEditText;
-            cancel = true;
-        } else if (!isPasswordValid()) {
-            setErrorPasswordView(getString(R.string.error_invalid_password));
-            focusView = mPasswordEditText;
             cancel = true;
         }
 
@@ -182,11 +166,7 @@ public class SignupContactFragment extends Fragment {
 
     //TODO Jangan lupa dibenerin validasinya
     private boolean isEmailValid() {
-        return mProfile.getEmail().contains("@");
-    }
-
-    private boolean isPasswordValid() {
-        return mProfile.getPassword().length() > 1;
+        return mUser.getEmail().contains("@");
     }
 
     private void setErrorEmailView(String message) {

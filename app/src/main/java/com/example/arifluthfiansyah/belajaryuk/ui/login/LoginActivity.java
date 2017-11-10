@@ -1,46 +1,57 @@
 package com.example.arifluthfiansyah.belajaryuk.ui.login;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.R;
+import com.example.arifluthfiansyah.belajaryuk.controller.UserController;
+import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
+import com.example.arifluthfiansyah.belajaryuk.network.model.User;
+import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
 import com.example.arifluthfiansyah.belajaryuk.ui.main.MainActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.signup.SignupActivity;
+import com.example.arifluthfiansyah.belajaryuk.ui.util.ValidationUtilEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
-public class LoginActivity extends AppCompatActivity implements
-        TextView.OnEditorActionListener {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private String mEmail, mPassword;
 
+    @BindView(R.id.login_content)
+    RelativeLayout mLoginContent;
+
     @BindView(R.id.pb_login)
-    ProgressBar mProgressView;
+    ProgressBar mProgressbar;
 
     @BindView(R.id.form_layout)
     LinearLayout mFormLayout;
@@ -57,6 +68,9 @@ public class LoginActivity extends AppCompatActivity implements
     @BindView(R.id.tv_signup)
     TextView mSignupTextView;
 
+    private Realm mRealm;
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
     public static Intent getStartIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
@@ -66,12 +80,12 @@ public class LoginActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        setupListener();
         setupSignupView();
+        setupUserController();
     }
 
-    private void setupListener() {
-        mPasswordEditText.setOnEditorActionListener(this);
+    private void setIsLoggedIn() {
+        AppPreferencesHelper.with(this).setIsLoggedIn(true);
     }
 
     private void setupSignupView() {
@@ -82,6 +96,10 @@ public class LoginActivity extends AppCompatActivity implements
         signupText.setSpan(new ForegroundColorSpan(color), 18, signup.length(), flag);
         signupText.setSpan(new StyleSpan(Typeface.BOLD), 18, signup.length(), flag);
         mSignupTextView.setText(signupText);
+    }
+
+    private void setupUserController() {
+        mRealm = UserController.get(this).getRealm();
     }
 
     private void openMainActivity() {
@@ -112,18 +130,19 @@ public class LoginActivity extends AppCompatActivity implements
         setPassword(mPasswordEditText.getText().toString());
 
         // Check for a valid password, if the user entered one.
-        if (!isPasswordEmpty() && !isPasswordValid()) {
+        if (!ValidationUtilEditText.isPasswordEmpty(getPassword()) &&
+                !ValidationUtilEditText.isPasswordValid(getPassword())) {
             setErrorPasswordView(getString(R.string.error_invalid_password));
             focusView = mPasswordEditText;
             cancel = true;
         }
 
         // Check for a valid email address.
-        if (isEmailEmpty()) {
+        if (ValidationUtilEditText.isEmailEmpty(getEmail())) {
             setErrorEmailView(getString(R.string.error_field_required));
             focusView = mEmailEditText;
             cancel = true;
-        } else if (!isEmailValid()) {
+        } else if (!ValidationUtilEditText.isEmailValid(getEmail())) {
             setErrorEmailView(getString(R.string.error_invalid_email));
             focusView = mEmailEditText;
             cancel = true;
@@ -133,42 +152,101 @@ public class LoginActivity extends AppCompatActivity implements
             focusView.requestFocus();
         } else {
             showProgress(true);
-            openMainActivity();
+            doFetchingTokenData();
         }
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+    private Passport getDataPassport() {
+        String apiClientSecret = getResources().getString(R.string.api_client_secret);
+        Passport passport = new Passport();
+        passport.setClientId(2);
+        passport.setClientSecret(apiClientSecret);
+        passport.setUsername(getEmail());
+        passport.setPassword(getPassword());
+        passport.setGrantType("password");
+        passport.setTheNewProvider("user");
+        return passport;
+    }
 
-            showFormLayout(show);
-            mFormLayout.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    showFormLayout(show);
-                }
-            });
+    private void doFetchingTokenData() {
+        mCompositeDisposable.add(ApiClient.get(this)
+                .getTokenApiCall(getDataPassport())
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverToken())
+        );
+    }
 
-            showProgessbar(show);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    showProgessbar(show);
-                }
-            });
-        } else {
-            showProgessbar(show);
-            showFormLayout(show);
-        }
+    private DisposableObserver<Token> getObserverToken() {
+        return new DisposableObserver<Token>() {
+            @Override
+            public void onNext(@NonNull Token token) {
+                String accessToken = token.getAccessToken();
+                setKeyUserAuthorization(accessToken);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                String message = getResources().getString(R.string.error_failed_login);
+                showSnackbar(message);
+                showProgress(false);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete Fetching Token");
+                doFetchingUserData();
+            }
+        };
+    }
+
+    private void setKeyUserAuthorization(String accesToken) {
+        AppPreferencesHelper.with(this).setKeyUserAuthorization(accesToken);
+    }
+
+    private String getKeyUserAuthorization() {
+        return AppPreferencesHelper.with(this).getUserAuthorization();
+    }
+
+    private void doFetchingUserData() {
+        mCompositeDisposable.add(ApiClient.get(this)
+                .getUserApiCall(getKeyUserAuthorization())
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverUser())
+        );
+    }
+
+    private DisposableObserver<User> getObserverUser() {
+        return new DisposableObserver<User>() {
+            @Override
+            public void onNext(@NonNull User user) {
+                String name = user.getNama();
+                showToastMessage("Selamat datang " + name);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete Fetching User");
+                showProgress(false);
+                setIsLoggedIn();
+                openMainActivity();
+            }
+        };
+    }
+
+    private void showProgress(boolean show) {
+        showProgessbar(show);
+        showFormLayout(show);
     }
 
     private String getEmail() {
@@ -179,30 +257,12 @@ public class LoginActivity extends AppCompatActivity implements
         mEmail = email;
     }
 
-    private boolean isEmailEmpty() {
-        return TextUtils.isEmpty(getEmail());
-    }
-
-
-    private boolean isEmailValid() {
-        return mEmail.contains("@");
-    }
-
     private String getPassword() {
         return mPassword = mPasswordEditText.getText().toString();
     }
 
     private void setPassword(String password) {
         mPassword = password;
-    }
-
-    private boolean isPasswordEmpty() {
-        return TextUtils.isEmpty(mPassword);
-    }
-
-
-    private boolean isPasswordValid() {
-        return mPassword.length() > 4;
     }
 
     private void setErrorView(String message) {
@@ -218,21 +278,26 @@ public class LoginActivity extends AppCompatActivity implements
         mEmailEditText.setError(message);
     }
 
-
     private void showProgessbar(boolean show) {
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressbar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void showFormLayout(boolean show) {
         mFormLayout.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
+    private void showToastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showSnackbar(String message) {
+        Snackbar.make(mLoginContent, message, Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
+    }
+
     @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == R.id.login || actionId == EditorInfo.IME_NULL) {
-            attemptLogin();
-            return true;
-        }
-        return false;
+    protected void onDestroy() {
+        super.onDestroy();
+        mCompositeDisposable.clear();
     }
 }

@@ -1,8 +1,8 @@
 package com.example.arifluthfiansyah.belajaryuk;
 
 import android.app.Application;
-import android.util.Log;
 
+import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.thefinestartist.Base;
 
 import io.realm.Realm;
@@ -18,5 +18,11 @@ public class BelajaryukApp extends Application {
         super.onCreate();
         Realm.init(this);
         Base.initialize(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        AppPreferencesHelper.with(this).clearAll();
     }
 }

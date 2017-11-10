@@ -6,36 +6,190 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/_8sdp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="@dimen/_128sdp"
-            android:layout_height="@dimen/_128sdp"
-            android:background="@drawable/img_belajaryuk_reverse"
-            tools:ignore="ContentDescription" />
+        <LinearLayout
+            android:id="@+id/form_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="@dimen/_128sdp"
-            android:layout_height="@dimen/_128sdp"
-            android:background="@drawable/img_belajaryuk_reverse"
-            tools:ignore="ContentDescription" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_photo_user"
+                android:layout_width="@dimen/_72sdp"
+                android:layout_height="@dimen/_72sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:src="@drawable/img_placeholder"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="@dimen/_2sdp" />
 
-        <ImageView
-            android:layout_width="@dimen/_128sdp"
-            android:layout_height="@dimen/_128sdp"
-            android:background="@drawable/img_belajaryuk_reverse"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/tv_change_photo"
+                style="@style/MyBodyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:onClick="doChangePhoto"
+                android:text="@string/prompt_change_photo"
+                android:textColor="@color/colorAccent" />
 
-        <ImageView
-            android:layout_width="@dimen/_128sdp"
-            android:layout_height="@dimen/_128sdp"
-            android:background="@drawable/img_belajaryuk_reverse"
-            tools:ignore="ContentDescription" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/prompt_name" />
+
+                <EditText
+                    android:id="@+id/et_name_user"
+                    style="@style/MyThemeBodyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:hint="@string/prompt_name"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/prompt_handphone" />
+
+                <EditText
+                    android:id="@+id/et_handphone_user"
+                    style="@style/MyThemeBodyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:hint="@string/prompt_handphone"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/prompt_province" />
+
+                <Spinner
+                    android:id="@+id/sp_province"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:prompt="@string/prompt_province" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/prompt_city" />
+
+                <Spinner
+                    android:id="@+id/sp_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:prompt="@string/prompt_province" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MyBodyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/prompt_address" />
+
+                <EditText
+                    android:id="@+id/et_address_user"
+                    style="@style/MyThemeBodyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:hint="@string/prompt_address"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save_profile_user"
+                style="@style/MyBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:onClick="doSaveProfileUser"
+                android:text="@string/prompt_save_profile"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/btn_logout"
+                style="@style/MyBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSoftRed"
+                android:onClick="doLogout"
+                android:text="@string/prompt_logout"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_fragment_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+    </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

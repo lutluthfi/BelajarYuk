@@ -44,7 +44,8 @@ public class ApiClient {
         return mRetrofit.create(ApiHelper.class);
     }
 
-    public static ApiHelper getWithHeader(Context context, final String authorization) {
+    //TODO the response is http 500, i don't know how to fix
+    public static ApiHelper getUserLogin(Context context, final String authorization) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory
@@ -58,7 +59,6 @@ public class ApiClient {
                 Request request = original.newBuilder()
                         .header("Accept", "application/json")
                         .header("Authorization", authorization)
-                        .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
             }

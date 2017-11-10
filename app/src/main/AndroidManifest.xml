@@ -31,6 +31,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyFinestWebViewTheme" />
         <activity
+            android:name=".ui.slider.SliderActivity"
+            android:label="@string/title_activity_slider"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.signup.SignupActivity"
@@ -45,7 +50,7 @@
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.bacayuk.BacayukActivity"
             android:label="@string/title_activity_bacayuk"

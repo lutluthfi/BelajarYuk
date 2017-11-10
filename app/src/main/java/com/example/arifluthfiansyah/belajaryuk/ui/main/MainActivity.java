@@ -3,19 +3,24 @@ package com.example.arifluthfiansyah.belajaryuk.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.R;
-import com.example.arifluthfiansyah.belajaryuk.data.prefs.AppPreferencesHelper;
+import com.example.arifluthfiansyah.belajaryuk.controller.UserController;
+import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
+import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.ui.history.HistoryFragment;
 import com.example.arifluthfiansyah.belajaryuk.ui.home.HomeFragment;
 import com.example.arifluthfiansyah.belajaryuk.ui.notification.NotificationFragment;
@@ -26,11 +31,15 @@ import java.lang.reflect.Field;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.annotations.NonNull;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity implements
-        BottomNavigationView.OnNavigationItemSelectedListener {
+        BottomNavigationView.OnNavigationItemSelectedListener, ProfileFragment.ProfileFragmentListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @BindView(R.id.content_layout)
     FrameLayout mContentLayout;
@@ -55,12 +64,40 @@ public class MainActivity extends AppCompatActivity implements
         setupFirstLoadContent();
     }
 
-    private void setupIsFirstTime(boolean firstTime) {
-        AppPreferencesHelper.with(this).setIsFirstTime(firstTime);
-    }
-
     private void setupListener() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
+    }
+
+    private void setupToolbar(String title) {
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
+    @Override
+    public void setSupportActionBar(@Nullable Toolbar toolbar) {
+        super.setSupportActionBar(toolbar);
+        if (toolbar != null) {
+            toolbar.setContentInsetStartWithNavigation(0);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_fragment_profile, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_logout:
+                showToastMessage("Logout");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupBottomNavigation() {
@@ -84,35 +121,43 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setupFirstLoadContent() {
+        String title = "";
         mFragmentManager = getSupportFragmentManager();
         if (mFragment == null) {
+            title = getResources().getString(R.string.title_fragment_home);
             mFragment = new HomeFragment();
         }
-        commitTransactionFragment(mFragment);
+        commitTransactionFragment(mFragment, title);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        String title = "";
         int id = item.getItemId();
         switch (id) {
             case R.id.navigation_home:
+                title = getResources().getString(R.string.title_fragment_home);
                 mFragment = new HomeFragment();
                 break;
             case R.id.navigation_history:
+                title = getResources().getString(R.string.title_fragment_history);
                 mFragment = new HistoryFragment();
                 break;
             case R.id.navigation_notifications:
+                title = getResources().getString(R.string.title_fragment_notification);
                 mFragment = new NotificationFragment();
                 break;
             case R.id.navigation_profile:
+                title = getResources().getString(R.string.title_fragment_profile);
                 mFragment = new ProfileFragment();
                 break;
         }
-        commitTransactionFragment(mFragment);
+        commitTransactionFragment(mFragment, title);
         return true;
     }
 
-    private void commitTransactionFragment(Fragment fragment) {
+    private void commitTransactionFragment(Fragment fragment, String title) {
+        setupToolbar(title);
         mFragmentManager.beginTransaction()
                 .replace(R.id.content_layout, fragment)
                 .commit();
@@ -120,6 +165,12 @@ public class MainActivity extends AppCompatActivity implements
 
     private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void doLogout() {
+        AppPreferencesHelper.with(this).clearAll();
+        finish();
     }
 
     @Override
@@ -132,6 +183,5 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppPreferencesHelper.with(this).clearAll();
     }
 }

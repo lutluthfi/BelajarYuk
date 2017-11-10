@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.example.arifluthfiansyah.belajaryuk.R;
-import com.example.arifluthfiansyah.belajaryuk.ui.splash.SplashFragment;
+import com.example.arifluthfiansyah.belajaryuk.ui.slider.SliderFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +59,7 @@ public class SignupActivity extends AppCompatActivity {
     private void setupFirstContentLayout() {
         mFragmentManager = getSupportFragmentManager();
         if (mFragment == null) {
-            mFragment = new SplashFragment();
+            mFragment = new SliderFragment();
         }
         String className = mFragment.getClass().getSimpleName();
         commitTransactionFragment(mFragment, className);

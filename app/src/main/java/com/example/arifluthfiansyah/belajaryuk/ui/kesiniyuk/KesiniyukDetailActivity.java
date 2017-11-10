@@ -80,7 +80,7 @@ public class KesiniyukDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayOptions(
                     ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP
             );
-            getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+            getSupportActionBar().setCustomView(R.layout.item_custom_actionbar);
         }
         setupCustomViewActionbar();
     }

@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.belajaryuk.ui.splash;
+package com.example.arifluthfiansyah.belajaryuk.ui.slider;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,9 +20,9 @@ import butterknife.OnClick;
  * Created by Arif Luthfiansyah on 25/09/2017.
  */
 
-public class SplashFragment extends Fragment {
+public class SliderFragment extends Fragment {
 
-    public static final String TAG = SplashFragment.class.getSimpleName();
+    public static final String TAG = SliderFragment.class.getSimpleName();
 
     @BindView(R.id.imageView)
     ImageView mLogoImageView;
@@ -34,7 +34,7 @@ public class SplashFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_content_splash, container, false);
+        View view = inflater.inflate(R.layout.fragment_content_slider, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

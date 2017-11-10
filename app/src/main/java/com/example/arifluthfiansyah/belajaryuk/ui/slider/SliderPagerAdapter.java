@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.belajaryuk.ui.splash;
+package com.example.arifluthfiansyah.belajaryuk.ui.slider;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -13,11 +13,11 @@ import java.util.List;
  * Created by Arif Luthfiansyah on 18/08/2017.
  */
 
-public class SplashPagerAdapter extends PagerAdapter {
+public class SliderPagerAdapter extends PagerAdapter {
 
     private List<Integer> mLayouts = new ArrayList<>();
 
-    public SplashPagerAdapter() {
+    public SliderPagerAdapter() {
         // Blank constructor
     }
 

@@ -1,68 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppTheme.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_layout_slider"
-    android:orientation="vertical"
-    tools:context=".ui.splash.SplashActivity"
-    tools:ignore="NestedWeights">
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="11">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/_184sdp"
+        android:layout_height="@dimen/_184sdp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/img_belajaryuk_horizontal"
+        tools:ignore="ContentDescription" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="@dimen/_24sdp"
-            app:fillColor="@color/colorFillSlider"
-            app:pageColor="@color/colorPageSlider"
-            app:radius="@dimen/_4sdp"
-            app:strokeColor="@android:color/transparent" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="@string/prompt_signup"
-            android:onClick="openRegisterActivity"
-            android:textAppearance="@style/MyThemeButton" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrey" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="@string/prompt_login"
-            android:onClick="openLoginActivity"
-            android:textAppearance="@style/MyThemeButton" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

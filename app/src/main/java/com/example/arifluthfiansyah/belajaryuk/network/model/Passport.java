@@ -24,6 +24,9 @@ public class Passport {
     @SerializedName("grant_type")
     @Expose
     private String grantType;
+    @SerializedName("theNewProvider")
+    @Expose
+    private String theNewProvider;
 
     public Integer getClientId() {
         return clientId;
@@ -63,5 +66,13 @@ public class Passport {
 
     public void setGrantType(String grantType) {
         this.grantType = grantType;
+    }
+
+    public String getTheNewProvider() {
+        return theNewProvider;
+    }
+
+    public void setTheNewProvider(String theNewProvider) {
+        this.theNewProvider = theNewProvider;
     }
 }

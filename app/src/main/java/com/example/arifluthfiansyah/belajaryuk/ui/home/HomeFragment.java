@@ -71,6 +71,7 @@ public class HomeFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
+        setHasOptionsMenu(true);
         setupContentSlider();
         setupUpcomingViewPager();
         setupAutoSlideViewPager();

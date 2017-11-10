@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -78,9 +81,6 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.btn_save_profile_user)
     Button mSaveProfileUserButton;
 
-    @BindView(R.id.btn_logout)
-    Button mLogoutButton;
-
     @BindView(R.id.pb_fragment_profile)
     ProgressBar mProgressbar;
 
@@ -95,12 +95,26 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
+        setHasOptionsMenu(true);
         doFetchingUserData();
         return view;
     }
 
-    private void setupListener(){
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_profile, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_logout:
+                mListener.doLogout();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupTitleFragment() {
@@ -142,6 +156,7 @@ public class ProfileFragment extends Fragment {
             public void onError(@NonNull Throwable e) {
                 String message = getResources().getString(R.string.error_failed_fetch_data);
                 showToastMessage(message);
+                showProgessbar(false);
             }
 
             @Override
@@ -150,11 +165,6 @@ public class ProfileFragment extends Fragment {
                 showProgress(false);
             }
         };
-    }
-
-    @OnClick(R.id.btn_logout)
-    public void doLogout(View view) {
-        mListener.doLogout();
     }
 
     private void showProgress(boolean show) {

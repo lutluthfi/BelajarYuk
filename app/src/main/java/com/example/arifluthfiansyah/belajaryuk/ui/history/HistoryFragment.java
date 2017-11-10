@@ -36,6 +36,7 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
+        setHasOptionsMenu(true);
         //TODO jangan lupa di benerin
         textView.setText(mContext.getResources().getString(R.string.title_fragment_history));
         return view;

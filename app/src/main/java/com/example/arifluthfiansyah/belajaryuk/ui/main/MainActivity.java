@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setupToolbar();
         setupListener();
         setupBottomNavigation();
         setupFirstLoadContent();
@@ -68,11 +69,8 @@ public class MainActivity extends AppCompatActivity implements
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
-    private void setupToolbar(String title) {
+    private void setupToolbar() {
         setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
-        }
     }
 
     @Override
@@ -81,23 +79,6 @@ public class MainActivity extends AppCompatActivity implements
         if (toolbar != null) {
             toolbar.setContentInsetStartWithNavigation(0);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_fragment_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_logout:
-                showToastMessage("Logout");
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupBottomNavigation() {
@@ -121,43 +102,35 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setupFirstLoadContent() {
-        String title = "";
         mFragmentManager = getSupportFragmentManager();
         if (mFragment == null) {
-            title = getResources().getString(R.string.title_fragment_home);
             mFragment = new HomeFragment();
         }
-        commitTransactionFragment(mFragment, title);
+        commitTransactionFragment(mFragment);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        String title = "";
         int id = item.getItemId();
         switch (id) {
             case R.id.navigation_home:
-                title = getResources().getString(R.string.title_fragment_home);
                 mFragment = new HomeFragment();
                 break;
             case R.id.navigation_history:
-                title = getResources().getString(R.string.title_fragment_history);
                 mFragment = new HistoryFragment();
                 break;
             case R.id.navigation_notifications:
-                title = getResources().getString(R.string.title_fragment_notification);
                 mFragment = new NotificationFragment();
                 break;
             case R.id.navigation_profile:
-                title = getResources().getString(R.string.title_fragment_profile);
                 mFragment = new ProfileFragment();
                 break;
         }
-        commitTransactionFragment(mFragment, title);
+        commitTransactionFragment(mFragment);
         return true;
     }
 
-    private void commitTransactionFragment(Fragment fragment, String title) {
-        setupToolbar(title);
+    private void commitTransactionFragment(Fragment fragment) {
         mFragmentManager.beginTransaction()
                 .replace(R.id.content_layout, fragment)
                 .commit();

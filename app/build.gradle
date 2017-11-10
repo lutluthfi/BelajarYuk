@@ -5,6 +5,9 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
+        manifestPlaceholders = [onesignal_app_id: "10a86433-0f00-48f3-8e35-b1b81099969a",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
         applicationId "com.example.arifluthfiansyah.belajaryuk"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -69,4 +72,8 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+
+    compile 'com.onesignal:OneSignal:[3.6.5, 3.99.99]'
+
 }

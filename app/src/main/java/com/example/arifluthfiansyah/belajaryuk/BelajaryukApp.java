@@ -3,6 +3,7 @@ package com.example.arifluthfiansyah.belajaryuk;
 import android.app.Application;
 
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
+import com.onesignal.OneSignal;
 import com.thefinestartist.Base;
 
 import io.realm.Realm;
@@ -18,6 +19,10 @@ public class BelajaryukApp extends Application {
         super.onCreate();
         Realm.init(this);
         Base.initialize(this);
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
     }
 
     @Override

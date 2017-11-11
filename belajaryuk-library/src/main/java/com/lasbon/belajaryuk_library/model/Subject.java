@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.belajaryuk.network.model;
+package com.lasbon.belajaryuk_library.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Arif Luthfiansyah on 29/10/2017.
  */
 
-public class User implements Serializable{
+public class Subject implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -23,12 +23,6 @@ public class User implements Serializable{
     @SerializedName("no_telp")
     @Expose
     private String noTelp;
-    @SerializedName("provinsi")
-    @Expose
-    private String provinsi;
-    @SerializedName("kabupaten")
-    @Expose
-    private String kabupaten;
     @SerializedName("alamat")
     @Expose
     private String alamat;
@@ -41,17 +35,6 @@ public class User implements Serializable{
     @SerializedName("registered")
     @Expose
     private String registered;
-    @SerializedName("pertanyaan")
-    @Expose
-    private Pertanyaan pertanyaan;
-    @SerializedName("jawaban")
-    @Expose
-    private Jawaban jawaban;
-    @SerializedName("onesignal_player_id")
-    @Expose
-    private String playerId;
-
-
 
     public Integer getId() {
         return id;
@@ -83,22 +66,6 @@ public class User implements Serializable{
 
     public void setNoTelp(String noTelp) {
         this.noTelp = noTelp;
-    }
-
-    public String getProvinsi() {
-        return provinsi;
-    }
-
-    public void setProvinsi(String provinsi) {
-        this.provinsi = provinsi;
-    }
-
-    public String getKabupaten() {
-        return kabupaten;
-    }
-
-    public void setKabupaten(String kabupaten) {
-        this.kabupaten = kabupaten;
     }
 
     public String getAlamat() {
@@ -133,19 +100,4 @@ public class User implements Serializable{
         this.registered = registered;
     }
 
-    public Pertanyaan getPertanyaan() {
-        return pertanyaan;
-    }
-
-    public void setPertanyaan(Pertanyaan pertanyaan) {
-        this.pertanyaan = pertanyaan;
-    }
-
-    public Jawaban getJawaban() {
-        return jawaban;
-    }
-
-    public void setJawaban(Jawaban jawaban) {
-        this.jawaban = jawaban;
-    }
 }

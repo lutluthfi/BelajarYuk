@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,10 +28,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupaten;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupatens;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsi;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsis;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,6 +94,8 @@ public class ProfileFragment extends Fragment {
 
     private ProfileFragmentListener mListener;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private ArrayAdapter<Provinsi> mProvinsiSpinnerAdapter;
+    private ArrayAdapter<Kabupaten> mKabupatenSpinnerAdapter;
 
     @Nullable
     @Override
@@ -120,11 +130,17 @@ public class ProfileFragment extends Fragment {
     private void setupTitleFragment() {
         String titleFragment = mContext.getResources()
                 .getString(R.string.title_fragment_profile);
-        getActivity().setTitle(titleFragment);
+        if (getActivity() != null) {
+            getActivity().setTitle(titleFragment);
+        }
     }
 
     private String getKeyUserAuthorization() {
         return AppPreferencesHelper.with(mContext).getUserAuthorization();
+    }
+
+    private String getKeyUserCity() {
+        return AppPreferencesHelper.with(mContext).getUserCity();
     }
 
     private void doFetchingUserData() {
@@ -145,11 +161,17 @@ public class ProfileFragment extends Fragment {
             public void onNext(@NonNull User user) {
                 String photo = user.getFoto();
                 String name = user.getNama();
+                String handphone = user.getNoTelp();
+                String address = user.getAlamat();
                 Glide.with(mContext)
                         .load(photo)
                         .centerCrop()
                         .into(mPhotoUserImageView);
                 mNameUserEditText.setText(name);
+                mHandphoneUserEditText.setText(handphone);
+                mAddressUserEditText.setText(address);
+                doFetchingProvinsisData();
+                doFetchingKabupatensData();
             }
 
             @Override
@@ -165,6 +187,90 @@ public class ProfileFragment extends Fragment {
                 showProgress(false);
             }
         };
+    }
+
+    private void doFetchingProvinsisData() {
+        mCompositeDisposable.add(ApiClient.get(mContext)
+                .getProvinsiApiCall()
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverProvinsi())
+        );
+    }
+
+    private DisposableObserver<Provinsis> getObserverProvinsi() {
+        return new DisposableObserver<Provinsis>() {
+            @Override
+            public void onNext(@NonNull Provinsis provinsis) {
+                mProvinsiSpinnerAdapter = new ArrayAdapter<Provinsi>(
+                        mContext,
+                        android.R.layout.simple_spinner_item,
+                        provinsis.getProvinsis()
+                );
+                mProvinsiSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                mProvinceSpinner.setAdapter(mProvinsiSpinnerAdapter);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                String message = getResources().getString(R.string.error_failed_fetch_data);
+                showToastMessage(message);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete Fetching Provinsi");
+            }
+        };
+    }
+
+    private void doFetchingKabupatensData() {
+        mCompositeDisposable.add(ApiClient.get(mContext)
+                .getKabupatenApiCall()
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverKabupaten())
+        );
+    }
+
+    private DisposableObserver<Kabupatens> getObserverKabupaten() {
+        return new DisposableObserver<Kabupatens>() {
+            @Override
+            public void onNext(@NonNull Kabupatens kabupatens) {
+                mKabupatenSpinnerAdapter = new ArrayAdapter<Kabupaten>(
+                        mContext,
+                        android.R.layout.simple_spinner_item,
+                        kabupatens.getKabupatens()
+                );
+                mKabupatenSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                mCitySpinner.setAdapter(mKabupatenSpinnerAdapter);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                String message = getResources().getString(R.string.error_failed_fetch_data);
+                showToastMessage(message);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete Fetching Provinsi");
+            }
+        };
+    }
+
+    @OnClick(R.id.tv_change_photo)
+    public void doChangePhoto(View view) {
+        showToastMessage("Fitur masih belum bisa");
+    }
+
+    @OnClick(R.id.btn_save_profile_user)
+    public void doSaveProfileUser(View view) {
+        showToastMessage("Fitur masih belum bisa");
     }
 
     private void showProgress(boolean show) {

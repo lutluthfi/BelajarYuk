@@ -32,14 +32,11 @@
 
             <ImageView
                 android:id="@+id/iv_available_pengajar"
-                android:layout_width="@dimen/_14sdp"
-                android:layout_height="@dimen/_14sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/background_icon_available_pengajar"
-                android:backgroundTint="@color/colorSoftRed"
-                android:padding="@dimen/_2sdp"
-                android:src="@drawable/ic_remove"
+                android:src="@color/colorBlack80"
                 tools:ignore="ContentDescription" />
         </RelativeLayout>
 

@@ -1,10 +1,13 @@
 package com.example.arifluthfiansyah.belajaryuk.network.rest;
 
 import com.example.arifluthfiansyah.belajaryuk.network.model.Beritas;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupatens;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kampanyes;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kegiatans;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajars;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaans;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsis;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 
@@ -40,6 +43,9 @@ public interface ApiHelper {
             @Query("page") int page
     );
 
+    @GET("api/v1/pertanyaan")
+    Flowable<Pertanyaans> getPertanyaanApiCall(@Path("pelajaran") String pelajaran);
+
     @GET("api/v1/berita")
     Flowable<Beritas> getBeritaApiCall(@Query("page") int page);
 
@@ -57,4 +63,10 @@ public interface ApiHelper {
 
     @GET("api/v1/kampanye/{id}")
     Flowable<Kampanyes> getKampanyeApiCall(@Path("id") String id);
+
+    @GET("api/v1/provinsi")
+    Flowable<Provinsis> getProvinsiApiCall();
+
+    @GET("api/v1/kabupaten")
+    Flowable<Kabupatens> getKabupatenApiCall();
 }

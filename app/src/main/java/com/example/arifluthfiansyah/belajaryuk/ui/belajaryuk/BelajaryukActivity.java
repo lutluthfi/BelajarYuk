@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.R;
+import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajar;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajars;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
@@ -32,7 +33,6 @@ public class BelajaryukActivity extends AppCompatActivity implements
         SwipeRefreshLayout.OnRefreshListener, BelajaryukAdapter.BelajaryukListener {
 
     private static final String TAG = BelajaryukActivity.class.getSimpleName();
-    private final int spanCount = 3;
     private int currentPage = 1;
 
     @BindView(R.id.toolbar)
@@ -52,8 +52,6 @@ public class BelajaryukActivity extends AppCompatActivity implements
         return new Intent(context, BelajaryukActivity.class);
     }
 
-    //TODO Buat pembeda buat guru/pengajar yang gak aktif
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +67,10 @@ public class BelajaryukActivity extends AppCompatActivity implements
         mBelajaryukRefreshLayout.setOnRefreshListener(this);
     }
 
-    //TODO Soon, city and district will get from user whose login
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
-        String title = getResources().getString(R.string.example_city);
-        String subtitle = "Kec. " + getResources().getString(R.string.example_district);
+        String title = getUserCity();
+        String subtitle = getResources().getString(R.string.example_course);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(title);
@@ -108,17 +105,21 @@ public class BelajaryukActivity extends AppCompatActivity implements
     }
 
     private void setupRecyclerView() {
-        mLayoutManager = new GridLayoutManager(this, spanCount);
+        mLayoutManager = new GridLayoutManager(this, 3);
         mBelajaryukRecyclerView.setHasFixedSize(true);
         mBelajaryukRecyclerView.setLayoutManager(mLayoutManager);
         mBelajaryukAdapter = new BelajaryukAdapter(this);
         mBelajaryukRecyclerView.setAdapter(mBelajaryukAdapter);
     }
 
+    private String getUserCity() {
+        return AppPreferencesHelper.with(this).getUserCity();
+    }
+
     private void doFetchingPengajarData() {
         onRefreshing();
         mCompositeDisposable.add(ApiClient.get(this)
-                .getPengajarApiCall("", currentPage)
+                .getPengajarApiCall(getUserCity(), currentPage)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())

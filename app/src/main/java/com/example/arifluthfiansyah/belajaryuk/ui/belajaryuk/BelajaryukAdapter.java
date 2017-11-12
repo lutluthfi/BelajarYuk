@@ -60,7 +60,6 @@ public class BelajaryukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int availablePengajar = mPengajars.get(position).getAktif();
         String ratingPengajar = getRatingPengajar(mPengajars.get(position).getUlasans().getUlasans());
         setupAvailablePengajar(
-                context,
                 ((BelajaryukViewHolder) holder).mAvailablePengajarImageView,
                 availablePengajar
         );
@@ -73,19 +72,11 @@ public class BelajaryukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((BelajaryukViewHolder) holder).mRatingPengajarTextView.setText(ratingPengajar);
     }
 
-    private void setupAvailablePengajar(Context context, ImageView iv, int available) {
-        int availableIcon = context.getResources()
-                .getIdentifier("ic_check", "drawable", context.getPackageName());
-        int availableColor = context.getResources().getColor(R.color.colorSoftGreen);
-        int nonAvailableIcon = context.getResources()
-                .getIdentifier("ic_remove", "drawable", context.getPackageName());
-        int nonAvailableColor = context.getResources().getColor(R.color.colorSoftRed);
+    private void setupAvailablePengajar(ImageView iv, int available) {
         if (available == 1) {
-            iv.setImageResource(availableIcon);
-            iv.getBackground().setTint(availableColor);
+            iv.setVisibility(View.INVISIBLE);
         } else {
-            iv.setImageResource(nonAvailableIcon);
-            iv.getBackground().setTint(nonAvailableColor);
+            iv.setVisibility(View.VISIBLE);
         }
     }
 

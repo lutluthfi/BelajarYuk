@@ -41,7 +41,7 @@
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_weight="1"
-            android:background="@drawable/background_button_profile_pengajar"
+            android:background="@drawable/background_layout_rounded"
             android:backgroundTint="@color/colorSoftGreen"
             android:text="@string/prompt_yes"
             android:textColor="@color/colorWhite"
@@ -57,7 +57,7 @@
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_weight="1"
             android:backgroundTint="@color/colorSoftRed"
-            android:background="@drawable/background_button_profile_pengajar"
+            android:background="@drawable/background_layout_rounded"
             android:text="@string/prompt_no"
             android:textColor="@color/colorWhite"
             tools:ignore="ContentDescription" />

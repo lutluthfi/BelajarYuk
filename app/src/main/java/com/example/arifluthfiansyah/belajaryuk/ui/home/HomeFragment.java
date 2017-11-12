@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.ui.bacayuk.BacayukActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.belajaryuk.BelajaryukActivity;
+import com.example.arifluthfiansyah.belajaryuk.ui.diskusiyuk.DiskusiyukActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.donasiyuk.DonasiyukActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.kesiniyuk.KesiniyukActivity;
 
@@ -71,6 +72,7 @@ public class HomeFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
+        setHasOptionsMenu(true);
         setupContentSlider();
         setupUpcomingViewPager();
         setupAutoSlideViewPager();
@@ -124,7 +126,8 @@ public class HomeFragment extends Fragment implements
 
     @OnClick(R.id.cv_diskusiyuk)
     public void openDiskusiyukActivity(View view) {
-        showToastMessage("Diskusi yuk");
+        Intent intent = DiskusiyukActivity.getStartIntent(mContext);
+        startActivity(intent);
     }
 
     @OnClick(R.id.cv_donasiyuk)

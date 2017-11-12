@@ -84,8 +84,6 @@ public class BacayukActivity extends AppCompatActivity implements
         mBacayukRecyclerView.setAdapter(mBacayukAdapter);
     }
 
-    //TODO terakhir sampe sini, belom proses utuh login
-
     private void doFetchingBeritasData() {
         onRefreshing();
         mCompositeDisposable.add(ApiClient.get(this)

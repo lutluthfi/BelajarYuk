@@ -9,8 +9,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "io.realm:realm-gradle-plugin:3.7.1"
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath "io.realm:realm-gradle-plugin:3.7.2"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -37,17 +37,17 @@ ext {
     // Sdk and tools
     minSdkVersion = 21
     targetSdkVersion = 26
-    compileSdkVersion = 26
-    buildToolsVersion = '26.0.1'
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.1'
 
     // App dependencies
-    supportLibraryVersion = '26.1.0'
+    supportLibraryVersion = '27.0.1'
     intuitsdpVersion = '1.0.4'
     finestWebviewVersion = '1.2.7'
     glideVersion = '3.7.0'
-    circleImageVersion = '2.1.0';
+    circleImageVersion = '2.1.0'
     placeholderviewVersion = '0.6.1'
-    butterKnifeVersion = '8.7.0'
+    butterKnifeVersion = '8.8.1'
     pagerIndicatorVersion = '2.4.1@aar'
     placeholderviewVersion = '0.6.1'
     thunderAnimationHelper = '-SNAPSHOT'
@@ -59,6 +59,7 @@ ext {
     rxandroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
     okhttpVersion = '3.8.1'
+    oneSignalVersion = '[3.6.5, 3.99.99]'
 
     // Test dependencies
     junitVersion = '4.12'

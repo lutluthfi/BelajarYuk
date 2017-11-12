@@ -30,6 +30,7 @@ public class NotificationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
         ButterKnife.bind(this, view);
         setupTitleFragment();
+        setHasOptionsMenu(true);
         return view;
     }
 

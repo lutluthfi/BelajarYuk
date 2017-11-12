@@ -69,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.tv_signup)
     TextView mSignupTextView;
 
-    private Realm mRealm;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     public static Intent getStartIntent(Context context) {
@@ -82,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         setupSignupView();
-        setupUserController();
     }
 
     private void setIsLoggedIn() {
@@ -97,10 +95,6 @@ public class LoginActivity extends AppCompatActivity {
         signupText.setSpan(new ForegroundColorSpan(color), 18, signup.length(), flag);
         signupText.setSpan(new StyleSpan(Typeface.BOLD), 18, signup.length(), flag);
         mSignupTextView.setText(signupText);
-    }
-
-    private void setupUserController() {
-        mRealm = UserController.get(this).getRealm();
     }
 
     private void openMainActivity() {
@@ -161,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
     private Passport getDataPassport() {
         String apiClientSecret = getResources().getString(R.string.api_client_secret);
         Passport passport = new Passport();
-        passport.setClientId(2);
+        passport.setClientId(1);
         passport.setClientSecret(apiClientSecret);
         passport.setUsername(getEmail());
         passport.setPassword(getPassword());
@@ -213,6 +207,10 @@ public class LoginActivity extends AppCompatActivity {
         return AppPreferencesHelper.with(this).getUserAuthorization();
     }
 
+    private void setKeyUserCity(String userCity) {
+        AppPreferencesHelper.with(this).setUserCity(userCity);
+    }
+
     private void doFetchingUserData() {
         mCompositeDisposable.add(ApiClient.get(this)
                 .getUserApiCall(getKeyUserAuthorization())
@@ -229,6 +227,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onNext(@NonNull User user) {
                 String name = user.getNama();
+                String city = user.getKabupaten();
+                setKeyUserCity(city);
                 showToastMessage("Selamat datang " + name);
             }
 
@@ -253,11 +253,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getEmail() {
-        return mEmail = mEmailEditText.getText().toString();
+        return this.mEmail = mEmailEditText.getText().toString();
     }
 
     private void setEmail(String email) {
-        mEmail = email;
+        this.mEmail = email;
     }
 
     private String getPlayerId() { return this.mPlayerId; }
@@ -267,11 +267,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getPassword() {
-        return mPassword = mPasswordEditText.getText().toString();
+        return this.mPassword = mPasswordEditText.getText().toString();
     }
 
     private void setPassword(String password) {
-        mPassword = password;
+        this.mPassword = password;
     }
 
     private void setErrorView(String message) {

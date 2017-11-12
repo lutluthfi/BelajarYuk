@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,10 +28,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupaten;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupatens;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsi;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsis;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,14 +89,13 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.btn_save_profile_user)
     Button mSaveProfileUserButton;
 
-    @BindView(R.id.btn_logout)
-    Button mLogoutButton;
-
     @BindView(R.id.pb_fragment_profile)
     ProgressBar mProgressbar;
 
     private ProfileFragmentListener mListener;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private ArrayAdapter<Provinsi> mProvinsiSpinnerAdapter;
+    private ArrayAdapter<Kabupaten> mKabupatenSpinnerAdapter;
 
     @Nullable
     @Override
@@ -95,22 +105,42 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
+        setHasOptionsMenu(true);
         doFetchingUserData();
         return view;
     }
 
-    private void setupListener(){
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_profile, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_logout:
+                mListener.doLogout();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupTitleFragment() {
         String titleFragment = mContext.getResources()
                 .getString(R.string.title_fragment_profile);
-        getActivity().setTitle(titleFragment);
+        if (getActivity() != null) {
+            getActivity().setTitle(titleFragment);
+        }
     }
 
     private String getKeyUserAuthorization() {
         return AppPreferencesHelper.with(mContext).getUserAuthorization();
+    }
+
+    private String getKeyUserCity() {
+        return AppPreferencesHelper.with(mContext).getUserCity();
     }
 
     private void doFetchingUserData() {
@@ -131,17 +161,24 @@ public class ProfileFragment extends Fragment {
             public void onNext(@NonNull User user) {
                 String photo = user.getFoto();
                 String name = user.getNama();
+                String handphone = user.getNoTelp();
+                String address = user.getAlamat();
                 Glide.with(mContext)
                         .load(photo)
                         .centerCrop()
                         .into(mPhotoUserImageView);
                 mNameUserEditText.setText(name);
+                mHandphoneUserEditText.setText(handphone);
+                mAddressUserEditText.setText(address);
+                doFetchingProvinsisData();
+                doFetchingKabupatensData();
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 String message = getResources().getString(R.string.error_failed_fetch_data);
                 showToastMessage(message);
+                showProgessbar(false);
             }
 
             @Override
@@ -152,9 +189,88 @@ public class ProfileFragment extends Fragment {
         };
     }
 
-    @OnClick(R.id.btn_logout)
-    public void doLogout(View view) {
-        mListener.doLogout();
+    private void doFetchingProvinsisData() {
+        mCompositeDisposable.add(ApiClient.get(mContext)
+                .getProvinsiApiCall()
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverProvinsi())
+        );
+    }
+
+    private DisposableObserver<Provinsis> getObserverProvinsi() {
+        return new DisposableObserver<Provinsis>() {
+            @Override
+            public void onNext(@NonNull Provinsis provinsis) {
+                mProvinsiSpinnerAdapter = new ArrayAdapter<Provinsi>(
+                        mContext,
+                        android.R.layout.simple_spinner_item,
+                        provinsis.getProvinsis()
+                );
+                mProvinsiSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                mProvinceSpinner.setAdapter(mProvinsiSpinnerAdapter);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                String message = getResources().getString(R.string.error_failed_fetch_data);
+                showToastMessage(message);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete Fetching Provinsi");
+            }
+        };
+    }
+
+    private void doFetchingKabupatensData() {
+        mCompositeDisposable.add(ApiClient.get(mContext)
+                .getKabupatenApiCall()
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverKabupaten())
+        );
+    }
+
+    private DisposableObserver<Kabupatens> getObserverKabupaten() {
+        return new DisposableObserver<Kabupatens>() {
+            @Override
+            public void onNext(@NonNull Kabupatens kabupatens) {
+                mKabupatenSpinnerAdapter = new ArrayAdapter<Kabupaten>(
+                        mContext,
+                        android.R.layout.simple_spinner_item,
+                        kabupatens.getKabupatens()
+                );
+                mKabupatenSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                mCitySpinner.setAdapter(mKabupatenSpinnerAdapter);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                String message = getResources().getString(R.string.error_failed_fetch_data);
+                showToastMessage(message);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete Fetching Provinsi");
+            }
+        };
+    }
+
+    @OnClick(R.id.tv_change_photo)
+    public void doChangePhoto(View view) {
+        showToastMessage("Fitur masih belum bisa");
+    }
+
+    @OnClick(R.id.btn_save_profile_user)
+    public void doSaveProfileUser(View view) {
+        showToastMessage("Fitur masih belum bisa");
     }
 
     private void showProgress(boolean show) {

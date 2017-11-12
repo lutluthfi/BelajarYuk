@@ -101,9 +101,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.diskusiyuk.DiskusiyukActivity"
+            android:label="@string/title_activity_diskusiyuk"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.diskusiyuk.DiskusiyukDetailActivity"
+            android:label="@string/title_activity_detail_diskusiyuk"
+            android:parentActivityName=".ui.diskusiyuk.DiskusiyukActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ui.profile.ProfilePengajarActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

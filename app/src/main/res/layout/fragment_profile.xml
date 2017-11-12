@@ -49,10 +49,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/MyBodyTextView"
+                    style="@style/MyCaptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:text="@string/prompt_name" />
 
                 <EditText
@@ -75,10 +76,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/MyBodyTextView"
+                    style="@style/MyCaptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:text="@string/prompt_handphone" />
 
                 <EditText
@@ -101,10 +103,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/MyBodyTextView"
+                    style="@style/MyCaptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:text="@string/prompt_province" />
 
                 <Spinner
@@ -124,10 +127,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/MyBodyTextView"
+                    style="@style/MyCaptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:text="@string/prompt_city" />
 
                 <Spinner
@@ -147,10 +151,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/MyBodyTextView"
+                    style="@style/MyCaptionTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
                     android:text="@string/prompt_address" />
 
                 <EditText
@@ -166,22 +171,13 @@
 
             <Button
                 android:id="@+id/btn_save_profile_user"
-                style="@style/MyBodyTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
+                android:layout_width="@dimen/_256sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/background_button_login_splash"
                 android:onClick="doSaveProfileUser"
                 android:text="@string/prompt_save_profile"
-                android:textColor="@color/colorWhite" />
-
-            <Button
-                android:id="@+id/btn_logout"
-                style="@style/MyBodyTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorSoftRed"
-                android:onClick="doLogout"
-                android:text="@string/prompt_logout"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 

@@ -1,1 +1,1 @@
-include ':app', ':belajaryuk-library'
+include ':app'

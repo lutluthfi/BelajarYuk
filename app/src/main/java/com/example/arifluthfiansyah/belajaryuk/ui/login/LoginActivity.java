@@ -31,6 +31,7 @@ import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
 import com.example.arifluthfiansyah.belajaryuk.ui.main.MainActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.signup.SignupActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.util.ValidationUtilEditText;
+import com.onesignal.OneSignal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +46,7 @@ import io.realm.Realm;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private String mEmail, mPassword;
+    private String mEmail, mPassword, mPlayerId;
 
     @BindView(R.id.login_content)
     RelativeLayout mLoginContent;
@@ -122,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         // Store values at the time of the login attempt.
         setEmail(mEmailEditText.getText().toString());
         setPassword(mPasswordEditText.getText().toString());
+        setPlayerId(OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId());
 
         // Check for a valid password, if the user entered one.
         if (!ValidationUtilEditText.isPasswordEmpty(getPassword()) &&
@@ -159,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         passport.setPassword(getPassword());
         passport.setGrantType("password");
         passport.setTheNewProvider("user");
+        passport.setPlayerId("player_id");
         return passport;
     }
 
@@ -255,6 +258,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setEmail(String email) {
         this.mEmail = email;
+    }
+
+    private String getPlayerId() { return this.mPlayerId; }
+
+    private void setPlayerId(String playerId) {
+        this.mPlayerId = playerId;
     }
 
     private String getPassword() {

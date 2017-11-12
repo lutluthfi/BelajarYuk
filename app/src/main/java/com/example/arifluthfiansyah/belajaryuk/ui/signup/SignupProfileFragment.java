@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
-import com.example.arifluthfiansyah.belajaryuk.ui.login.LoginActivity;
 import com.mlsdev.rximagepicker.RxImageConverters;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
@@ -87,8 +85,6 @@ public class SignupProfileFragment extends Fragment {
     }
 
     private void openLoginActivity() {
-        Intent intent = LoginActivity.getStartIntent(mContext);
-        startActivity(intent);
     }
 
     private void sendDataToFragment(Fragment fragment, String name,

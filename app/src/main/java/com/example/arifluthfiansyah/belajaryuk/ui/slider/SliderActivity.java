@@ -61,8 +61,6 @@ public class SliderActivity extends AppCompatActivity implements
     }
 
     private void openLoginActivity() {
-        Intent intent = LoginActivity.getStartIntent(this);
-        startActivity(intent);
         finish();
     }
 

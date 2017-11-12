@@ -15,18 +15,14 @@ import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 public class BaseActivity extends AppCompatActivity {
 
     public boolean checkIsLoggedIn() {
-        if  (!AppPreferencesHelper.with(this).getIsLoggedIn()) {
-            return true;
-        }
-
-        return false;
+        return AppPreferencesHelper.with(this).getIsLoggedIn();
     }
 
-    public void printLog(String tag,String message){
-        Log.d(tag, message);
+    public void setIsLoggedIn() {
+        AppPreferencesHelper.with(this).setIsLoggedIn(true);
     }
 
-    public void setAuthorizationKey(String token){
+    public void setAuthorizationKey(String token) {
         AppPreferencesHelper.with(this).setKeyUserAuthorization(token);
     }
 
@@ -43,8 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void setIsLoggedIn() {
-        AppPreferencesHelper.with(this).setIsLoggedIn(true);
+    public void printLog(String tag, String message) {
+        Log.d(tag, message);
     }
-
 }

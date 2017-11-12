@@ -30,7 +30,6 @@ public class SplashActivity extends BaseActivity {
                 } else {
                     i = new Intent(SplashActivity.this, LoginActivity.class);
                 }
-
                 startActivity(i);
                 finish();
             }

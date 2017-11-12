@@ -48,7 +48,6 @@ public class LoginActivity extends BaseActivity {
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,6 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         setupView();
     }
-
 
     private void setupView() {
         int flag = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
@@ -68,9 +66,6 @@ public class LoginActivity extends BaseActivity {
         mSignupTextView.setText(signupText);
     }
 
-
-
-
     @OnClick(R.id.tv_signup)
     public void openSignupActivity(View view) {
         startActivity(SignupActivity.getStartIntent(this));
@@ -80,8 +75,6 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.btn_login)
     public void doLogin(View view) {
         setErrorView(null);
-        boolean cancel = false;
-        View focusView = null;
 
         // store the datas
         String email = mEmailEditText.getText().toString();
@@ -188,6 +181,7 @@ public class LoginActivity extends BaseActivity {
         mEmailEditText.setError(message);
         mPasswordEditText.setError(message);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

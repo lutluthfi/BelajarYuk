@@ -2,7 +2,10 @@ package com.example.arifluthfiansyah.belajaryuk.ui.profile;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -36,7 +39,11 @@ import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsis;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
+import com.mlsdev.rximagepicker.RxImageConverters;
+import com.mlsdev.rximagepicker.RxImagePicker;
+import com.mlsdev.rximagepicker.Sources;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +52,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.thefinestartist.utils.content.ContextUtil.getExternalFilesDir;
 
 /**
  * Created by Arif Luthfiansyah on 20/09/2017.
@@ -62,35 +75,16 @@ public class ProfileFragment extends Fragment {
     private Context mContext;
     private Unbinder mUnbinder;
 
-    @BindView(R.id.form_layout)
-    LinearLayout mFormLayout;
-
-    @BindView(R.id.iv_photo_user)
-    CircleImageView mPhotoUserImageView;
-
-    @BindView(R.id.tv_change_photo)
-    TextView mChangePhotoTextView;
-
-    @BindView(R.id.et_name_user)
-    EditText mNameUserEditText;
-
-    @BindView(R.id.et_handphone_user)
-    EditText mHandphoneUserEditText;
-
-    @BindView(R.id.sp_province)
-    Spinner mProvinceSpinner;
-
-    @BindView(R.id.sp_city)
-    Spinner mCitySpinner;
-
-    @BindView(R.id.et_address_user)
-    EditText mAddressUserEditText;
-
-    @BindView(R.id.btn_save_profile_user)
-    Button mSaveProfileUserButton;
-
-    @BindView(R.id.pb_fragment_profile)
-    ProgressBar mProgressbar;
+    @BindView(R.id.form_layout) LinearLayout mFormLayout;
+    @BindView(R.id.iv_photo_user) CircleImageView mPhotoUserImageView;
+    @BindView(R.id.tv_change_photo) TextView mChangePhotoTextView;
+    @BindView(R.id.et_name_user) EditText mNameUserEditText;
+    @BindView(R.id.et_handphone_user) EditText mHandphoneUserEditText;
+    @BindView(R.id.sp_province) Spinner mProvinceSpinner;
+    @BindView(R.id.sp_city) Spinner mCitySpinner;
+    @BindView(R.id.et_address_user) EditText mAddressUserEditText;
+    @BindView(R.id.btn_save_profile_user) Button mSaveProfileUserButton;
+    @BindView(R.id.pb_fragment_profile) ProgressBar mProgressbar;
 
     private ProfileFragmentListener mListener;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -242,9 +236,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onNext(@NonNull Kabupatens kabupatens) {
                 mKabupatenSpinnerAdapter = new ArrayAdapter<Kabupaten>(
-                        mContext,
-                        android.R.layout.simple_spinner_item,
-                        kabupatens.getKabupatens()
+                        mContext, android.R.layout.simple_spinner_item, kabupatens.getKabupatens()
                 );
                 mKabupatenSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 mCitySpinner.setAdapter(mKabupatenSpinnerAdapter);
@@ -258,16 +250,64 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching Provinsi");
+                Log.d(TAG, "Complete Fetching Kabupaten");
             }
         };
     }
 
     @OnClick(R.id.tv_change_photo)
     public void doChangePhoto(View view) {
-        showToastMessage("Fitur masih belum bisa");
+        RxImagePicker.with(mContext)
+                .requestImage(Sources.GALLERY)
+                .flatMap(new Function<Uri, ObservableSource<File>>() {
+                    @Override
+                    public ObservableSource<File> apply(@NonNull Uri uri) throws Exception {
+                        return RxImageConverters.uriToFile(mContext, uri, createTempFile());
+                    }
+                })
+                .subscribe(new Observer<File>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.d(TAG, "onSubscibeImagePicker");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull File f) {
+                        Log.d(TAG, f.toString());
+                        onImagePicked(f);
+                        mPhotoUserImageView.setTag(f.toString());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e(TAG, e.getMessage());
+                        showToastMessage(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onCompleteImagePicker");
+                    }
+                });
     }
 
+    private void onImagePicked(Object result) {
+        Log.d(TAG, result.toString());
+        showToastMessage("Success!");
+        if (result instanceof Bitmap) {
+            mPhotoUserImageView.setImageBitmap((Bitmap) result);
+        } else {
+            Glide.with(mContext).load(result).asBitmap().into(mPhotoUserImageView);
+        }
+    }
+
+    private File createTempFile() {
+        return new File(getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES),
+                System.currentTimeMillis() + "_img_belajaryuk.jpeg");
+    }
+
+    //TODO belum bisa update data user
     @OnClick(R.id.btn_save_profile_user)
     public void doSaveProfileUser(View view) {
         showToastMessage("Fitur masih belum bisa");
@@ -301,6 +341,7 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+        mCompositeDisposable.clear();
     }
 
     public interface ProfileFragmentListener {

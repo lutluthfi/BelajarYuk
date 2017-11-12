@@ -26,11 +26,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = SignupActivity.class.getSimpleName();
 
-    @BindView(R.id.content_register_layout)
-    FrameLayout mContentLayout;
-
-    @BindView(R.id.progressBar)
-    ProgressBar mProgressbar;
+    @BindView(R.id.content_register_layout) FrameLayout mContentLayout;
+    @BindView(R.id.progressBar) ProgressBar mProgressbar;
 
     private Fragment mFragment;
     private static FragmentManager mFragmentManager;
@@ -42,6 +39,7 @@ public class SignupActivity extends AppCompatActivity {
     public static void commitTransactionFragment(Fragment fragment, String tag) {
         mFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setCustomAnimations(R.anim.fragment_slide_in_up, R.anim.fragment_slide_out_down)
                 .replace(R.id.content_register_layout, fragment, tag)
                 .addToBackStack("TAG")
                 .commit();

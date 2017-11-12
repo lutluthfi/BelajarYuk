@@ -165,16 +165,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:hint="@string/prompt_address"
-                    android:inputType="textPersonName"
-                    android:maxLines="1" />
+                    android:inputType="textMultiLine"
+                    android:maxLines="4" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_save_profile_user"
                 android:layout_width="@dimen/_256sdp"
                 android:layout_height="@dimen/_36sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/background_button_login_splash"
                 android:onClick="doSaveProfileUser"
                 android:text="@string/prompt_save_profile"

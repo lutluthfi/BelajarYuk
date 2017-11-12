@@ -1,6 +1,7 @@
 package com.example.arifluthfiansyah.belajaryuk.network.rest;
 
 import com.example.arifluthfiansyah.belajaryuk.network.model.Beritas;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Jawabans;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupatens;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kampanyes;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kegiatans;
@@ -44,7 +45,13 @@ public interface ApiHelper {
     );
 
     @GET("api/v1/pertanyaan")
+    Flowable<Pertanyaans> getPertanyaanApiCall(@Query("page") int page);
+
+    @GET("api/v1/pertanyaan")
     Flowable<Pertanyaans> getPertanyaanApiCall(@Path("pelajaran") String pelajaran);
+
+    @GET("api/v1/jawaban")
+    Flowable<Jawabans> getJawabanApiCall(@Path("id") String id);
 
     @GET("api/v1/berita")
     Flowable<Beritas> getBeritaApiCall(@Query("page") int page);

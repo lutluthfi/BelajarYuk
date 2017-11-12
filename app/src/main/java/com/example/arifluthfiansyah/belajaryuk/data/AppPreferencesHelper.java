@@ -15,6 +15,7 @@ public class AppPreferencesHelper {
     private static final String PREF_KEY_IS_LOGGED_IN          = "PREF_KEY_USER_ARE_LOGGED_IN";
     private static final String PREF_KEY_USER_AUTHORIZATION    = "PREF_KEY_USER_AUTHORIZATION";
     private static final String PREF_KEY_USER_CITY             = "PREF_KEY_USER_CITY";
+    private static final String PREF_KEY_USER_COURSE           = "PREF_KEY_USER_COURSE";
     private static final String PREF_KEY_KEGIATANS_TOTAL_PAGES = "PREF_KEY_KEGIATANS_TOTAL_PAGES";
     private static final String PREF_KEY_KEGIATANS_TOTAL_ITEMS = "PREF_KEY_KEGIATANS_TOTAL_ITEMS";
     private static final String PREF_KEY_KEGIATANS_PAGE_NUMBER = "PREF_KEY_KEGIATANS_PAGE_NUMBER";
@@ -68,6 +69,14 @@ public class AppPreferencesHelper {
 
     public String getUserCity() {
         return mPrefs.getString(PREF_KEY_USER_CITY, "");
+    }
+
+    public void setUserCourse(String course){
+        mPrefs.edit().putString(PREF_KEY_USER_COURSE, course).apply();
+    }
+
+    public String getUserCourse(){
+        return mPrefs.getString(PREF_KEY_USER_COURSE, "Matematika");
     }
 
     public void setKegiatansTotalPages(int totalPages) {

@@ -16,13 +16,13 @@ public class Jawabans implements Serializable {
 
     @SerializedName("data")
     @Expose
-    private List<Jawabans> jawabans = null;
+    private List<Jawaban> jawabans = null;
 
-    public List<Jawabans> getJawabans() {
+    public List<Jawaban> getJawabans() {
         return jawabans;
     }
 
-    public void setJawabans(List<Jawabans> jawabans) {
+    public void setJawabans(List<Jawaban> jawabans) {
         this.jawabans = jawabans;
     }
 }

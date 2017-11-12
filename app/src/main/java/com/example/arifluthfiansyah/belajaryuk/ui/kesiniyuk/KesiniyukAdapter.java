@@ -62,8 +62,6 @@ public class KesiniyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         String timeKegiatan = mKegiatans.get(position).getWaktu();
         String addressKegiatan = mKegiatans.get(position).getLokasi();
         String namePenyelenggara = mKegiatans.get(position).getPenyelenggara().getNama();
-        String phonePenyelenggara = mKegiatans.get(position).getPenyelenggara().getNoTelp();
-        String emailPenyelenggara = mKegiatans.get(position).getPenyelenggara().getEmail();
 
         ((KesiniyukViewHolder) holder).mTitleKegiatanTextView.setText(titleKegiatan);
         Glide.with(context)

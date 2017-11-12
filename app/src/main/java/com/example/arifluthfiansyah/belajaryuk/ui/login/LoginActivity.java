@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
     private Passport getDataPassport() {
         String apiClientSecret = getResources().getString(R.string.api_client_secret);
         Passport passport = new Passport();
-        passport.setClientId(2);
+        passport.setClientId(1);
         passport.setClientSecret(apiClientSecret);
         passport.setUsername(getEmail());
         passport.setPassword(getPassword());

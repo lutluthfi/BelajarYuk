@@ -95,7 +95,7 @@ public class DonasiyukActivity extends AppCompatActivity implements
     }
 
     private void doFetchingKampanyeData() {
-        onRefreshing();
+        setRefreshing(true);
         mCompositeDisposable.add(ApiClient.get(this)
                 .getKampanyeApiCall(currentPage)
                 .onBackpressureDrop()
@@ -122,7 +122,7 @@ public class DonasiyukActivity extends AppCompatActivity implements
             @Override
             public void onComplete() {
                 Log.d(TAG, "Complete Fetching Kampanye");
-                stopRefreshing();
+                setRefreshing(false);
             }
         };
     }
@@ -138,12 +138,8 @@ public class DonasiyukActivity extends AppCompatActivity implements
         doFetchingKampanyeData();
     }
 
-    private void onRefreshing() {
-        mDonasiyukRefreshLayout.setRefreshing(true);
-    }
-
-    private void stopRefreshing() {
-        mDonasiyukRefreshLayout.setRefreshing(false);
+    private void setRefreshing(boolean refresh) {
+        mDonasiyukRefreshLayout.setRefreshing(refresh);
     }
 
     private void showToasMessage(String message) {

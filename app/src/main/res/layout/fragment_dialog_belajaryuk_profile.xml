@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_8sdp"
     android:paddingLeft="@dimen/_8sdp"
     android:paddingRight="@dimen/_8sdp"
     android:paddingTop="@dimen/_16sdp">
@@ -15,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:paddingLeft="@dimen/_4sdp"
             android:paddingRight="@dimen/_4sdp"
             tools:ignore="UselessParent">
@@ -88,7 +89,7 @@
                 android:layout_marginRight="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_profile_pengajar"
+                android:background="@drawable/background_layout_rounded"
                 android:backgroundTint="@color/colorWhite"
                 android:elevation="@dimen/_2sdp"
                 android:onClick="doCallPengajar"
@@ -106,7 +107,7 @@
                 android:layout_marginRight="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_profile_pengajar"
+                android:background="@drawable/background_layout_rounded"
                 android:backgroundTint="@color/colorWhite"
                 android:elevation="@dimen/_2sdp"
                 android:onClick="doEmailPengajar"
@@ -124,7 +125,7 @@
                 android:layout_marginRight="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_profile_pengajar"
+                android:background="@drawable/background_layout_rounded"
                 android:backgroundTint="@color/colorWhite"
                 android:elevation="@dimen/_2sdp"
                 android:onClick="openProfilePengajar"
@@ -149,8 +150,8 @@
                 tools:ignore="UselessParent">
 
                 <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/ic_star"
                     android:backgroundTint="@color/colorSoftYellow"
@@ -171,7 +172,7 @@
                     android:layout_gravity="center_horizontal"
                     android:maxLength="5"
                     android:text="@string/example_number"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_11sdp" />
             </LinearLayout>
 
             <LinearLayout
@@ -182,8 +183,8 @@
                 tools:ignore="UselessParent">
 
                 <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/ic_rate_review"
                     android:backgroundTint="@color/colorSoftGreen"
@@ -204,7 +205,7 @@
                     android:layout_gravity="center_horizontal"
                     android:maxLength="5"
                     android:text="@string/example_number"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_11sdp" />
             </LinearLayout>
 
             <LinearLayout
@@ -215,8 +216,8 @@
                 tools:ignore="UselessParent">
 
                 <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/ic_chat"
                     android:backgroundTint="@color/colorDeepLightBlue"
@@ -237,7 +238,7 @@
                     android:layout_gravity="center_horizontal"
                     android:maxLength="5"
                     android:text="@string/example_number"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_11sdp" />
             </LinearLayout>
 
             <LinearLayout
@@ -248,8 +249,8 @@
                 tools:ignore="UselessParent">
 
                 <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/ic_monetization_on"
                     android:backgroundTint="@color/colorSoftRed"
@@ -268,9 +269,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:maxLength="8"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
                     android:text="@string/example_price"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_11sdp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -282,7 +284,7 @@
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/background_button_profile_pengajar"
+            android:background="@drawable/background_layout_rounded"
             android:onClick="doOrderPengajar"
             android:text="@string/order_pengajar"
             android:textColor="@color/colorWhite"

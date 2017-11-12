@@ -1,16 +1,24 @@
 package com.example.arifluthfiansyah.belajaryuk.ui.diskusiyuk;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaan;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaans;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Arif Luthfiansyah on 11/11/2017.
@@ -38,12 +46,24 @@ public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        return DiskusiyukViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Context context = ((DiskusiyukViewHolder) holder).itemView.getContext();
+        String course = mPertanyaans.get(position).getPelajaran();
+        String title = mPertanyaans.get(position).getJudul();
+        String photoUser = mPertanyaans.get(position).getUser().getFoto();
+        String nameUser = mPertanyaans.get(position).getUser().getNama();
 
+        ((DiskusiyukViewHolder) holder).mCoursePertanyaanTextView.setText(course);
+        ((DiskusiyukViewHolder) holder).mTitlePertanyaanTextView.setText(title);
+        Glide.with(context)
+                .load(photoUser)
+                .asBitmap()
+                .into(((DiskusiyukViewHolder) holder).mPhotoUserImageView);
+        ((DiskusiyukViewHolder) holder).mNameUserTextView.setText(nameUser);
     }
 
     @Override
@@ -55,12 +75,27 @@ public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         void onPertanyaanItemClick(Pertanyaan pertanyaan);
     }
 
-    //TODO terakhir sampai disini, buat list diskusiyuk
     static class DiskusiyukViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener {
 
-        public DiskusiyukViewHolder(View itemView) {
+        @BindView(R.id.tv_course_pertanyaan)
+        TextView mCoursePertanyaanTextView;
+
+        @BindView(R.id.tv_title_pertanyaan)
+        TextView mTitlePertanyaanTextView;
+
+        @BindView(R.id.iv_photo_user)
+        CircleImageView mPhotoUserImageView;
+
+        @BindView(R.id.tv_name_user)
+        TextView mNameUserTextView;
+
+        @BindView(R.id.btn_answer_pertanyaan)
+        Button mAnswerPertanyaanButton;
+
+        private DiskusiyukViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -73,7 +108,7 @@ public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onClick(View view) {
-
+            mDiskusiyukListener.onPertanyaanItemClick(mPertanyaans.get(getAdapterPosition()));
         }
     }
 }

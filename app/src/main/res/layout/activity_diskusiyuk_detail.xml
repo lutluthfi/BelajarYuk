@@ -20,6 +20,97 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_diskusiyuk_detail" />
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/diskusiyuk_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrey"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/pertanyaan_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:paddingLeft="@dimen/_16sdp"
+                android:paddingRight="@dimen/_16sdp"
+                android:paddingTop="@dimen/_8sdp">
+
+                <TextView
+                    android:id="@+id/tv_title_pertanyaan"
+                    style="@style/MyHeaderTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title" />
+
+                <TextView
+                    android:id="@+id/tv_course_pertanyaan"
+                    style="@style/MyCaptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/example_course" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/prompt_answer"
+                style="@style/MyBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pertanyaan_layout"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/prompt_answer" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_diskusiyuk_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/prompt_answer" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_answer_pertanyaan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:background="@color/colorLightGrey"
+            android:ems="10"
+            android:hint="@string/prompt_answer"
+            android:inputType="textMultiLine"
+            android:labelFor="@id/et_answer_pertanyaan"
+            android:maxLines="10"
+            android:paddingBottom="@dimen/_4sdp"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingRight="@dimen/_8sdp"
+            android:paddingTop="@dimen/_4sdp"
+            android:textSize="@dimen/_10sdp" />
+
+        <ImageButton
+            android:id="@+id/btn_answer_pertanyaan"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_weight="1"
+            android:background="@color/colorSoftGreen"
+            android:src="@drawable/ic_send"
+            android:tint="@color/colorWhite"
+            tools:ignore="ContentDescription" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.design.widget.CoordinatorLayout>

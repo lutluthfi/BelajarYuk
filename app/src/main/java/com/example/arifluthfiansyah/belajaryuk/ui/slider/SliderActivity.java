@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.ui.login.LoginActivity;
@@ -27,16 +28,12 @@ import butterknife.OnClick;
  * Created by Arif Luthfiansyah on 09/09/2017.
  */
 
-public class SliderActivity extends AppCompatActivity implements
-        ViewPager.OnPageChangeListener {
+public class SliderActivity extends BaseActivity {
 
     private static final String TAG = SliderActivity.class.getSimpleName();
 
-    @BindView(R.id.view_pager)
-    ViewPager mViewPager;
-
-    @BindView(R.id.indicator)
-    CirclePageIndicator mPageIncdicator;
+    @BindView(R.id.view_pager) ViewPager mViewPager;
+    @BindView(R.id.indicator) CirclePageIndicator mPageIncdicator;
 
     private List<Integer> mLayouts;
     private SliderPagerAdapter mSliderAdapter;
@@ -81,7 +78,6 @@ public class SliderActivity extends AppCompatActivity implements
         mSliderAdapter = new SliderPagerAdapter();
         mSliderAdapter.addLayout(mLayouts);
         mViewPager.setAdapter(mSliderAdapter);
-        mViewPager.setOnPageChangeListener(this);
         mPageIncdicator.setViewPager(mViewPager);
     }
 
@@ -107,20 +103,5 @@ public class SliderActivity extends AppCompatActivity implements
         } else {
             openRegisterActivity();
         }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 }

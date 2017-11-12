@@ -56,14 +56,13 @@ public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         String title = mPertanyaans.get(position).getJudul();
         String photoUser = mPertanyaans.get(position).getUser().getFoto();
         String nameUser = mPertanyaans.get(position).getUser().getNama();
+        String created = mPertanyaans.get(position).getCreatedAt();
 
         ((DiskusiyukViewHolder) holder).mCoursePertanyaanTextView.setText(course);
         ((DiskusiyukViewHolder) holder).mTitlePertanyaanTextView.setText(title);
-        Glide.with(context)
-                .load(photoUser)
-                .asBitmap()
-                .into(((DiskusiyukViewHolder) holder).mPhotoUserImageView);
+        Glide.with(context).load(photoUser).asBitmap().into(((DiskusiyukViewHolder) holder).mPhotoUserImageView);
         ((DiskusiyukViewHolder) holder).mNameUserTextView.setText(nameUser);
+        ((DiskusiyukViewHolder) holder).mCreatedPertanyaanTextView.setText(created);
     }
 
     @Override
@@ -78,20 +77,11 @@ public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     static class DiskusiyukViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener {
 
-        @BindView(R.id.tv_course_pertanyaan)
-        TextView mCoursePertanyaanTextView;
-
-        @BindView(R.id.tv_title_pertanyaan)
-        TextView mTitlePertanyaanTextView;
-
-        @BindView(R.id.iv_photo_user)
-        CircleImageView mPhotoUserImageView;
-
-        @BindView(R.id.tv_name_user)
-        TextView mNameUserTextView;
-
-        @BindView(R.id.btn_answer_pertanyaan)
-        Button mAnswerPertanyaanButton;
+        @BindView(R.id.tv_course_pertanyaan) TextView mCoursePertanyaanTextView;
+        @BindView(R.id.tv_title_pertanyaan) TextView mTitlePertanyaanTextView;
+        @BindView(R.id.iv_photo_user) CircleImageView mPhotoUserImageView;
+        @BindView(R.id.tv_name_user) TextView mNameUserTextView;
+        @BindView(R.id.tv_created_pertanyaan) TextView mCreatedPertanyaanTextView;
 
         private DiskusiyukViewHolder(View itemView) {
             super(itemView);

@@ -56,10 +56,7 @@ public class DiskusiyukDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
         String name = context.getResources().getString(R.string.example_name);
         String content = mJawabans.get(position).getKonten();
 
-        Glide.with(context)
-                .load(photo)
-                .asBitmap()
-                .into(((DiskusiyukDetailViewHolder) holder).mPhotoUserImageView);
+        Glide.with(context).load(photo).asBitmap().into(((DiskusiyukDetailViewHolder) holder).mPhotoUserImageView);
         ((DiskusiyukDetailViewHolder) holder).mNameUserTextView.setText(name);
         ((DiskusiyukDetailViewHolder) holder).mContentJawabanTextView.setText(content);
     }
@@ -76,17 +73,10 @@ public class DiskusiyukDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
     static class DiskusiyukDetailViewHolder extends RecyclerView.ViewHolder implements
             View.OnClickListener {
 
-        @BindView(R.id.iv_photo_user)
-        CircleImageView mPhotoUserImageView;
-
-        @BindView(R.id.tv_name_user)
-        TextView mNameUserTextView;
-
-        @BindView(R.id.tv_content_jawaban)
-        TextView mContentJawabanTextView;
-
-        @BindView(R.id.btn_more_jawaban)
-        ImageButton mMoreJawabanButton;
+        @BindView(R.id.iv_photo_user) CircleImageView mPhotoUserImageView;
+        @BindView(R.id.tv_name_user) TextView mNameUserTextView;
+        @BindView(R.id.tv_content_jawaban) TextView mContentJawabanTextView;
+        @BindView(R.id.btn_more_jawaban) ImageButton mMoreJawabanButton;
 
         private DiskusiyukDetailViewHolder(View itemView) {
             super(itemView);

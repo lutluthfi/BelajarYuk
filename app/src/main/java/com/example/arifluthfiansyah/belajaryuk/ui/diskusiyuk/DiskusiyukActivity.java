@@ -13,8 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kampanyes;
@@ -35,23 +38,17 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Arif Luthfiansyah on 11/11/2017.
  */
 
-public class DiskusiyukActivity extends AppCompatActivity implements
+public class DiskusiyukActivity extends BaseActivity implements
         SwipeRefreshLayout.OnRefreshListener, DiskusiyukAdapter.DiskusiyukListener {
 
     private static final String TAG = DiskusiyukActivity.class.getSimpleName();
     private int currentPage = 1;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.diskusiyuk_content)
-    SwipeRefreshLayout mDiskusiyukRefreshLayout;
-
-    @BindView(R.id.rv_diskusiyuk)
-    RecyclerView mDiskusiyukRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.diskusiyuk_content) SwipeRefreshLayout mDiskusiyukRefreshLayout;
+    @BindView(R.id.rv_diskusiyuk) RecyclerView mDiskusiyukRecyclerView;
 
     private DiskusiyukAdapter mDiskusiyukAdapter;
-    private LinearLayoutManager mLayoutManager;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     public static Intent getStartIntent(Context context) {
@@ -75,8 +72,8 @@ public class DiskusiyukActivity extends AppCompatActivity implements
 
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
-        String title = AppPreferencesHelper.with(this).getUserCourse();
-        String subtitle = getResources().getString(R.string.prompt_course);
+        String title = getResources().getString(R.string.prompt_course);
+        String subtitle = AppPreferencesHelper.with(this).getUserCourse();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(title);
@@ -110,7 +107,7 @@ public class DiskusiyukActivity extends AppCompatActivity implements
     }
 
     private void setupRecyclerView() {
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDiskusiyukRecyclerView.setHasFixedSize(true);
         mDiskusiyukRecyclerView.setLayoutManager(mLayoutManager);
@@ -160,21 +157,12 @@ public class DiskusiyukActivity extends AppCompatActivity implements
     @Override
     public void onPertanyaanItemClick(Pertanyaan pertanyaan) {
         Intent intent = DiskusiyukDetailActivity.getStartIntent(this);
-        intent.putExtra("keyJawabans", pertanyaan.getJawabans());
+        intent.putExtra("keyPertanyaan", pertanyaan);
         startActivity(intent);
     }
 
     private void setRefreshing(boolean refresh) {
         mDiskusiyukRefreshLayout.setRefreshing(refresh);
-    }
-
-    private void showToastMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showSnackbar(String message) {
-        Snackbar.make(mDiskusiyukRefreshLayout, message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
     @Override

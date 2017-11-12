@@ -1,11 +1,7 @@
 package com.example.arifluthfiansyah.belajaryuk.ui.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -19,11 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
-import com.example.arifluthfiansyah.belajaryuk.controller.UserController;
-import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
@@ -41,55 +35,30 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
-    private String mEmail, mPassword, mPlayerId;
+    @BindView(R.id.login_content) RelativeLayout mLoginContent;
+    @BindView(R.id.pb_login) ProgressBar mProgressbar;
+    @BindView(R.id.form_layout) LinearLayout mFormLayout;
+    @BindView(R.id.et_email) EditText mEmailEditText;
+    @BindView(R.id.et_password) EditText mPasswordEditText;
+    @BindView(R.id.btn_login) Button mLoginButton;
+    @BindView(R.id.tv_signup) TextView mSignupTextView;
 
-    @BindView(R.id.login_content)
-    RelativeLayout mLoginContent;
-
-    @BindView(R.id.pb_login)
-    ProgressBar mProgressbar;
-
-    @BindView(R.id.form_layout)
-    LinearLayout mFormLayout;
-
-    @BindView(R.id.et_email)
-    EditText mEmailEditText;
-
-    @BindView(R.id.et_password)
-    EditText mPasswordEditText;
-
-    @BindView(R.id.btn_login)
-    Button mLoginButton;
-
-    @BindView(R.id.tv_signup)
-    TextView mSignupTextView;
-
-    private Realm mRealm;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
-    public static Intent getStartIntent(Context context) {
-        return new Intent(context, LoginActivity.class);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        setupSignupView();
-        setupUserController();
+        setupView();
     }
 
-    private void setIsLoggedIn() {
-        AppPreferencesHelper.with(this).setIsLoggedIn(true);
-    }
 
-    private void setupSignupView() {
+    private void setupView() {
         int flag = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE;
         String signup = getResources().getString(R.string.prompt_signup_now);
         int color = getResources().getColor(R.color.colorDeepLightBlue);
@@ -99,81 +68,53 @@ public class LoginActivity extends AppCompatActivity {
         mSignupTextView.setText(signupText);
     }
 
-    private void setupUserController() {
-        mRealm = UserController.get(this).getRealm();
-    }
 
-    private void openMainActivity() {
-        Intent intent = MainActivity.getStartIntent(this);
-        startActivity(intent);
-        finish();
-    }
+
 
     @OnClick(R.id.tv_signup)
     public void openSignupActivity(View view) {
-        Intent intent = SignupActivity.getStartIntent(this);
-        startActivity(intent);
+        startActivity(SignupActivity.getStartIntent(this));
         finish();
     }
 
     @OnClick(R.id.btn_login)
     public void doLogin(View view) {
-        attemptLogin();
-    }
-
-    private void attemptLogin() {
         setErrorView(null);
         boolean cancel = false;
         View focusView = null;
 
-        // Store values at the time of the login attempt.
-        setEmail(mEmailEditText.getText().toString());
-        setPassword(mPasswordEditText.getText().toString());
-        setPlayerId(OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId());
+        // store the datas
+        String email = mEmailEditText.getText().toString();
+        String pass = mPasswordEditText.getText().toString();
+        String playerId = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
 
-        // Check for a valid password, if the user entered one.
-        if (!ValidationUtilEditText.isPasswordEmpty(getPassword()) &&
-                !ValidationUtilEditText.isPasswordValid(getPassword())) {
-            setErrorPasswordView(getString(R.string.error_invalid_password));
-            focusView = mPasswordEditText;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (ValidationUtilEditText.isEmailEmpty(getEmail())) {
-            setErrorEmailView(getString(R.string.error_field_required));
-            focusView = mEmailEditText;
-            cancel = true;
-        } else if (!ValidationUtilEditText.isEmailValid(getEmail())) {
-            setErrorEmailView(getString(R.string.error_invalid_email));
-            focusView = mEmailEditText;
-            cancel = true;
-        }
-
-        if (cancel) {
-            focusView.requestFocus();
+        if(ValidationUtilEditText.isEmailEmpty(email) && !ValidationUtilEditText.isEmailValid(email)){
+            mEmailEditText.requestFocus();
+            mEmailEditText.setText(getString(R.string.error_invalid_email));
+        } else if(ValidationUtilEditText.isPasswordEmpty(pass) && !ValidationUtilEditText.isPasswordValid(pass)) {
+            mPasswordEditText.requestFocus();
+            mPasswordEditText.setText(getString(R.string.error_invalid_password));
         } else {
             showProgress(true);
-            doFetchingTokenData();
+            doFetchingTokenData(email, pass, playerId);
         }
     }
 
-    private Passport getDataPassport() {
+    private Passport getLoginPassport(String email, String pass, String playerId) {
         String apiClientSecret = getResources().getString(R.string.api_client_secret);
         Passport passport = new Passport();
-        passport.setClientId(2);
+        passport.setClientId(1);
         passport.setClientSecret(apiClientSecret);
-        passport.setUsername(getEmail());
-        passport.setPassword(getPassword());
+        passport.setUsername(email);
+        passport.setPassword(pass);
         passport.setGrantType("password");
         passport.setTheNewProvider("user");
-        passport.setPlayerId("player_id");
         return passport;
     }
 
-    private void doFetchingTokenData() {
+    private void doFetchingTokenData(String email, String pass, String playerId) {
         mCompositeDisposable.add(ApiClient.get(this)
-                .getTokenApiCall(getDataPassport())
+                .getTokenApiCall(getLoginPassport(email, pass, playerId))
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -186,36 +127,26 @@ public class LoginActivity extends AppCompatActivity {
         return new DisposableObserver<Token>() {
             @Override
             public void onNext(@NonNull Token token) {
-                String accessToken = token.getAccessToken();
-                setKeyUserAuthorization(accessToken);
+                setAuthorizationKey(token.getAccessToken());
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 String message = getResources().getString(R.string.error_failed_login);
-                showSnackbar(message);
+                showSnackbar(mLoginContent, message);
                 showProgress(false);
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching Token");
                 doFetchingUserData();
             }
         };
     }
 
-    private void setKeyUserAuthorization(String accesToken) {
-        AppPreferencesHelper.with(this).setKeyUserAuthorization(accesToken);
-    }
-
-    private String getKeyUserAuthorization() {
-        return AppPreferencesHelper.with(this).getUserAuthorization();
-    }
-
     private void doFetchingUserData() {
         mCompositeDisposable.add(ApiClient.get(this)
-                .getUserApiCall(getKeyUserAuthorization())
+                .getUserApiCall(getAuthorizationKey())
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -234,76 +165,29 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG, e.getMessage());
+                Log.d("", e.getMessage());
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching User");
                 showProgress(false);
                 setIsLoggedIn();
-                openMainActivity();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
             }
         };
     }
 
     private void showProgress(boolean show) {
-        showProgessbar(show);
-        showFormLayout(show);
-    }
-
-    private String getEmail() {
-        return mEmail = mEmailEditText.getText().toString();
-    }
-
-    private void setEmail(String email) {
-        mEmail = email;
-    }
-
-    private String getPlayerId() { return this.mPlayerId; }
-
-    private void setPlayerId(String playerId) {
-        this.mPlayerId = playerId;
-    }
-
-    private String getPassword() {
-        return mPassword = mPasswordEditText.getText().toString();
-    }
-
-    private void setPassword(String password) {
-        mPassword = password;
+        mProgressbar.setVisibility(show ? View.VISIBLE : View.GONE);
+        mFormLayout.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     private void setErrorView(String message) {
         mEmailEditText.setError(message);
         mPasswordEditText.setError(message);
     }
-
-    private void setErrorPasswordView(String message) {
-        mPasswordEditText.setError(message);
-    }
-
-    private void setErrorEmailView(String message) {
-        mEmailEditText.setError(message);
-    }
-
-    private void showProgessbar(boolean show) {
-        mProgressbar.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    private void showFormLayout(boolean show) {
-        mFormLayout.setVisibility(show ? View.GONE : View.VISIBLE);
-    }
-
-    private void showToastMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showSnackbar(String message) {
-        Snackbar.make(mLoginContent, message, Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

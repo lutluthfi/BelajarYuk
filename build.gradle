@@ -52,11 +52,10 @@ ext {
     placeholderviewVersion = '0.6.1'
     thunderAnimationHelper = '-SNAPSHOT'
 
-    dagger2Version = '2.8'
     rximagePickerVersion = '2.0.2'
-    rx2FastAndroidNetworking = '1.0.0'
     rxjava2Version = '2.1.1'
     rxandroidVersion = '2.0.1'
+    gsonVersion = '2.8.2'
     retrofitVersion = '2.3.0'
     okhttpVersion = '3.8.1'
     oneSignalVersion = '[3.6.5, 3.99.99]'

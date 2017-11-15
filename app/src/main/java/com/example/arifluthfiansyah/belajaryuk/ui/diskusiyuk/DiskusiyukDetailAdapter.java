@@ -26,7 +26,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DiskusiyukDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = DiskusiyukDetailAdapter.class.getSimpleName();
     private static List<Jawaban> mJawabans = new ArrayList<>();
     private static DiskusiyukDetailListener mListener;
 
@@ -52,10 +51,11 @@ public class DiskusiyukDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Context context = ((DiskusiyukDetailViewHolder) holder).itemView.getContext();
-        String photo = mJawabans.get(position).getFoto();
-        String name = context.getResources().getString(R.string.example_name);
+        String photo = mJawabans.get(position).getSubject().getFoto();
+        String name = mJawabans.get(position).getSubject().getNama();
         String content = mJawabans.get(position).getKonten();
 
+        // Binding datas with views
         Glide.with(context).load(photo).asBitmap().into(((DiskusiyukDetailViewHolder) holder).mPhotoUserImageView);
         ((DiskusiyukDetailViewHolder) holder).mNameUserTextView.setText(name);
         ((DiskusiyukDetailViewHolder) holder).mContentJawabanTextView.setText(content);

@@ -25,12 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
-        android:text="@string/lorem" />
+        android:text="@string/title"
+        android:textSize="@dimen/_16sdp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_4sdp"
@@ -53,7 +54,6 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_toEndOf="@id/iv_photo_user"
-            android:layout_toStartOf="@+id/btn_answer_pertanyaan"
             android:orientation="vertical">
 
             <TextView
@@ -74,8 +74,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="@dimen/_8sdp"
-        android:layout_marginRight="@dimen/_8sdp"
-        android:background="@color/colorBlack" />
+        android:layout_height="@dimen/line_divider"
+        android:background="@color/colorDarkGrey" />
 </LinearLayout>

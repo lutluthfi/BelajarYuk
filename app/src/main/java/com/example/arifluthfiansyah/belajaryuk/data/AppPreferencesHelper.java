@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 
 public class AppPreferencesHelper {
 
-    //TODO Jangan lupa buat preference untuk token jg ya sob
     private static final String PREF_NAME = "BELAJARYUK";
     private static final String PREF_KEY_IS_FIRST_TIME         = "PREF_KEY_IS_FIRST_TIME";
     private static final String PREF_KEY_IS_LOGGED_IN          = "PREF_KEY_USER_ARE_LOGGED_IN";

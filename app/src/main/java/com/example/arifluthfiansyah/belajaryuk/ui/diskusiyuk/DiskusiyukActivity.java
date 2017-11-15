@@ -4,27 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
-import com.example.arifluthfiansyah.belajaryuk.network.model.Kampanyes;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaan;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaans;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
-import com.example.arifluthfiansyah.belajaryuk.ui.donasiyuk.DonasiyukAdapter;
+import com.example.arifluthfiansyah.belajaryuk.ui.pelajaran.PelajaranFragmentDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +35,7 @@ public class DiskusiyukActivity extends BaseActivity implements
         SwipeRefreshLayout.OnRefreshListener, DiskusiyukAdapter.DiskusiyukListener {
 
     private static final String TAG = DiskusiyukActivity.class.getSimpleName();
-    private int currentPage = 1;
+    private int currentPage = 1; // Var for pagination
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.diskusiyuk_content) SwipeRefreshLayout mDiskusiyukRefreshLayout;
@@ -98,9 +91,10 @@ public class DiskusiyukActivity extends BaseActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id) {
+        switch (id) {
             case R.id.action_search:
-                showToastMessage("Cari mata pelajaran");
+                PelajaranFragmentDialog fd = new PelajaranFragmentDialog();
+                fd.show(getSupportFragmentManager(), "Content");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -116,9 +110,9 @@ public class DiskusiyukActivity extends BaseActivity implements
     }
 
     private void doFetchingPertanyaanData() {
-        setRefreshing(true);
+        mDiskusiyukRefreshLayout.setRefreshing(true);
         mCompositeDisposable.add(ApiClient.get(this)
-                .getPertanyaanApiCall(currentPage)
+                .getPertanyaanApiCall("",1)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -142,8 +136,8 @@ public class DiskusiyukActivity extends BaseActivity implements
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching Pertanyaan");
-                setRefreshing(false);
+                printLog(TAG, "Complete fetching pertanyaans");
+                mDiskusiyukRefreshLayout.setRefreshing(false);
             }
         };
     }
@@ -159,10 +153,6 @@ public class DiskusiyukActivity extends BaseActivity implements
         Intent intent = DiskusiyukDetailActivity.getStartIntent(this);
         intent.putExtra("keyPertanyaan", pertanyaan);
         startActivity(intent);
-    }
-
-    private void setRefreshing(boolean refresh) {
-        mDiskusiyukRefreshLayout.setRefreshing(refresh);
     }
 
     @Override

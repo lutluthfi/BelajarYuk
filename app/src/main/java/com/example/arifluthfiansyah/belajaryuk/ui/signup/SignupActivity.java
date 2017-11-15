@@ -39,7 +39,7 @@ public class SignupActivity extends AppCompatActivity {
     public static void commitTransactionFragment(Fragment fragment, String tag) {
         mFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .setCustomAnimations(R.anim.fragment_slide_in_up, R.anim.fragment_slide_out_down)
+                .setCustomAnimations(R.anim.content_slide_in_up, R.anim.content_slide_out_down)
                 .replace(R.id.content_register_layout, fragment, tag)
                 .addToBackStack("TAG")
                 .commit();

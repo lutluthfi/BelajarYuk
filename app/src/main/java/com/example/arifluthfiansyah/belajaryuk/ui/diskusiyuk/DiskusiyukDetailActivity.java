@@ -7,23 +7,32 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Jawaban;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Jawabans;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaan;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Pertanyaans;
+import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Arif Luthfiansyah on 12/11/2017.
  */
 
-//TODO terakhir rapihin tampilan diskusi detail activity, belum bisa post jawaban
+//TODO Not yet to post jawaban
 public class DiskusiyukDetailActivity extends BaseActivity implements
         DiskusiyukDetailAdapter.DiskusiyukDetailListener {
 
@@ -51,6 +60,7 @@ public class DiskusiyukDetailActivity extends BaseActivity implements
         setupToolbar();
         setupPertanyaanData();
         setupRecyclerView();
+        doFetchingJawabansData();
     }
 
     private void setupToolbar() {
@@ -60,6 +70,7 @@ public class DiskusiyukDetailActivity extends BaseActivity implements
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(title);
+            getSupportActionBar().setSubtitle(subtitle);
         }
     }
 
@@ -79,7 +90,6 @@ public class DiskusiyukDetailActivity extends BaseActivity implements
         mDiskusiyukDetailRecyclerView.setLayoutManager(mLayoutManager);
         mDiskusiyukDetailAdapter = new DiskusiyukDetailAdapter(this);
         mDiskusiyukDetailRecyclerView.setAdapter(mDiskusiyukDetailAdapter);
-        mDiskusiyukDetailAdapter.addJawabans(getPertanyaanData().getJawabans());
     }
 
     private Pertanyaan getPertanyaanData() {
@@ -94,6 +104,37 @@ public class DiskusiyukDetailActivity extends BaseActivity implements
     @Override
     public void openMenuItemJawaban() {
 
+    }
+
+    private void doFetchingJawabansData() {
+        mCompositeDisposable.add(ApiClient.get(this)
+                .getJawabanPertanyaanApiCall(getPertanyaanData().getId())
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverPertanyaans())
+        );
+    }
+
+    private DisposableObserver<Jawabans> getObserverPertanyaans() {
+        return new DisposableObserver<Jawabans>() {
+            @Override
+            public void onNext(@NonNull Jawabans jawabans) {
+                mDiskusiyukDetailAdapter.addJawabans(jawabans);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                showToastMessage(e.getMessage());
+                finish();
+            }
+
+            @Override
+            public void onComplete() {
+                printLog(TAG, "Complete fetching jawabans");
+            }
+        };
     }
 
     @Override

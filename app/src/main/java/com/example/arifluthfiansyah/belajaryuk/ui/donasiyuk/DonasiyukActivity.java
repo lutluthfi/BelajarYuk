@@ -15,10 +15,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kampanye;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kampanyes;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Links;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,25 +32,18 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class DonasiyukActivity extends AppCompatActivity implements
+public class DonasiyukActivity extends BaseActivity implements
         SwipeRefreshLayout.OnRefreshListener, DonasiyukAdapter.DonasiyukListener {
 
     //TODO Belom ada detail donasiyuk
-
     private static final String TAG = DonasiyukActivity.class.getSimpleName();
-    private int currentPage = 1;
+    private int currentPage = 1; // Var for pagination
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.donasiyuk_content)
-    SwipeRefreshLayout mDonasiyukRefreshLayout;
-
-    @BindView(R.id.rv_donasiyuk)
-    RecyclerView mDonasiyukRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.donasiyuk_content) SwipeRefreshLayout mDonasiyukRefreshLayout;
+    @BindView(R.id.rv_donasiyuk) RecyclerView mDonasiyukRecyclerView;
 
     private DonasiyukAdapter mDonasiyukAdapter;
-    private LinearLayoutManager mLayoutManager;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     public static Intent getStartIntent(Context context) {
@@ -86,7 +83,7 @@ public class DonasiyukActivity extends AppCompatActivity implements
     }
 
     private void setupRecyclerView() {
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDonasiyukRecyclerView.setHasFixedSize(true);
         mDonasiyukRecyclerView.setLayoutManager(mLayoutManager);
@@ -95,9 +92,9 @@ public class DonasiyukActivity extends AppCompatActivity implements
     }
 
     private void doFetchingKampanyeData() {
-        setRefreshing(true);
+        mDonasiyukRefreshLayout.setRefreshing(true);
         mCompositeDisposable.add(ApiClient.get(this)
-                .getKampanyeApiCall(currentPage)
+                .getKampanyeApiCall(1)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -115,40 +112,28 @@ public class DonasiyukActivity extends AppCompatActivity implements
 
             @Override
             public void onError(@NonNull Throwable e) {
-                showToasMessage(e.getMessage());
+                printLog(TAG, e.getMessage());
+                showToastMessage(e.getMessage());
                 finish();
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching Kampanye");
-                setRefreshing(false);
+                printLog(TAG, "Complete fetching kampanyes");
+                mDonasiyukRefreshLayout.setRefreshing(false);
             }
         };
     }
 
     @Override
     public void onKampanyeItemClick(Kampanye kampanye) {
-
+        showSnackbar(mDonasiyukRefreshLayout, kampanye.getJudul());
     }
 
     @Override
     public void onRefresh() {
         mDonasiyukAdapter.clearKampanye();
         doFetchingKampanyeData();
-    }
-
-    private void setRefreshing(boolean refresh) {
-        mDonasiyukRefreshLayout.setRefreshing(refresh);
-    }
-
-    private void showToasMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showSnackbar(String message) {
-        Snackbar.make(mDonasiyukRefreshLayout, message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
     @Override

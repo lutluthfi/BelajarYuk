@@ -26,7 +26,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = DiskusiyukAdapter.class.getSimpleName();
     private static DiskusiyukListener mDiskusiyukListener;
     private static List<Pertanyaan> mPertanyaans = new ArrayList<>();
 
@@ -58,6 +57,7 @@ public class DiskusiyukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         String nameUser = mPertanyaans.get(position).getUser().getNama();
         String created = mPertanyaans.get(position).getCreatedAt();
 
+        // Binding datas with views
         ((DiskusiyukViewHolder) holder).mCoursePertanyaanTextView.setText(course);
         ((DiskusiyukViewHolder) holder).mTitlePertanyaanTextView.setText(title);
         Glide.with(context).load(photoUser).asBitmap().into(((DiskusiyukViewHolder) holder).mPhotoUserImageView);

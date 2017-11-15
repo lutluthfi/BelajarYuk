@@ -20,6 +20,493 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_belajaryuk_order_confirm" />
+    <LinearLayout
+        android:id="@+id/belajaryuk_order_confirm_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_course" />
+
+                            <TextView
+                                android:id="@+id/tv_change_courses"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_change"
+                                android:onClick="changeCourse"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorSoftYellow"
+                                tools:ignore="RelativeOverlap" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorLightGrey"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_courses"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawableStart="@drawable/ic_book"
+                                android:drawableTint="@color/colorSoftOrange"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_course"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:id="@+id/tv_add_desc_courses"
+                                style="@style/MyBodyTextView"
+                                android:onClick="addDescriptionCourse"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawableStart="@drawable/ic_edit"
+                                android:drawableTint="@color/colorSoftLightBlue"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/_8sdp"
+                                android:paddingEnd="@dimen/_8sdp"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:text="@string/prompt_add_inform"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorAccent"
+                                tools:ignore="UnusedAttribute" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_session" />
+
+                            <TextView
+                                android:id="@+id/tv_change_session"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_change"
+                                android:onClick="changeSession"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorSoftYellow"
+                                tools:ignore="RelativeOverlap" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorLightGrey">
+
+                            <TextView
+                                android:id="@+id/tv_session"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawableStart="@drawable/ic_access_time"
+                                android:drawableTint="@color/colorDeepDarkBlue"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/example_number"
+                                tools:ignore="RelativeOverlap,UnusedAttribute" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_location" />
+
+                            <TextView
+                                android:id="@+id/tv_change_location"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:padding="@dimen/_8sdp"
+                                android:onClick="changeLocation"
+                                android:text="@string/prompt_change"
+                                android:textAllCaps="true"
+                                android:textColor="@color/colorSoftYellow"
+                                tools:ignore="RelativeOverlap" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorLightGrey"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_location"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawableStart="@drawable/ic_location_on"
+                                android:drawableTint="@color/colorGreen"
+                                android:ellipsize="end"
+                                android:gravity="center_vertical"
+                                android:maxLines="2"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/example_address"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:id="@+id/tv_add_inform_location"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:onClick="addInformationLocation"
+                                android:drawableStart="@drawable/ic_edit"
+                                android:drawableTint="@color/colorSoftLightBlue"
+                                android:gravity="center_vertical"
+                                android:paddingBottom="@dimen/_8sdp"
+                                android:paddingEnd="@dimen/_8sdp"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:text="@string/prompt_add_inform"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorAccent"
+                                tools:ignore="UnusedAttribute" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_payment_method" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorLightGrey"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/_8sdp">
+
+                                <RadioButton
+                                    android:id="@+id/rb_payment_method_cash"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/prompt_payment_cash"
+                                    android:textAllCaps="true" />
+
+                                <TextView
+                                    android:id="@+id/tv_payment_cash_price"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="@string/example_price"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/rb_payment_method_transfer"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginBottom="@dimen/_8sdp"
+                                    android:layout_marginStart="@dimen/_8sdp"
+                                    android:text="@string/prompt_payment_transfer"
+                                    android:textAllCaps="true" />
+
+                                <TextView
+                                    android:id="@+id/tv_payment_transfer_price"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginBottom="@dimen/_8sdp"
+                                    android:layout_marginEnd="@dimen/_8sdp"
+                                    android:text="@string/example_price"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardElevation="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_payment_detail" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorLightGrey"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:id="@+id/tv_name_pengajar"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:drawablePadding="@dimen/_8sdp"
+                                    android:drawableStart="@drawable/ic_person"
+                                    android:drawableTint="@color/colorAccent"
+                                    android:gravity="center_vertical"
+                                    android:padding="@dimen/_8sdp"
+                                    android:text="@string/example_name"
+                                    tools:ignore="RelativeOverlap,UnusedAttribute" />
+
+                                <TextView
+                                    android:id="@+id/tv_price_pengajar"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center_vertical"
+                                    android:padding="@dimen/_8sdp"
+                                    android:text="@string/example_price"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:drawablePadding="@dimen/_8sdp"
+                                    android:drawableStart="@drawable/ic_access_time"
+                                    android:drawableTint="@color/colorAccent"
+                                    android:gravity="center_vertical"
+                                    android:padding="@dimen/_8sdp"
+                                    android:text="@string/prompt_session"
+                                    tools:ignore="RelativeOverlap,UnusedAttribute" />
+
+                                <TextView
+                                    android:id="@+id/tv_session_total"
+                                    style="@style/MyBodyTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center_vertical"
+                                    android:padding="@dimen/_8sdp"
+                                    android:text="@string/example_number"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/background_layout_confirm_order_title">
+
+                            <TextView
+                                style="@style/MyHeaderTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/prompt_total_price"
+                                android:textSize="@dimen/_14sdp"
+                                tools:ignore="RelativeOverlap,UnusedAttribute" />
+
+                            <TextView
+                                android:id="@+id/tv_price_total"
+                                style="@style/MyBodyTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/_8sdp"
+                                android:text="@string/example_price"
+                                tools:ignore="RelativeOverlap" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    style="@style/MyCaptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:text="@string/prompt_payment_policy" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btn_order_pengajar"
+            style="@style/MyBodyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:onClick="doOrderPengajar"
+            android:text="@string/order_pengajar"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

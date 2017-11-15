@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,7 +45,7 @@ public class ApiClient {
         return mRetrofit.create(ApiHelper.class);
     }
 
-    //TODO the response is http 500, i don't know how to fix
+    //TODO Get response http 500, when implement header for authorization, i don't know how to fix
     public static ApiHelper getUserLogin(Context context, final String authorization) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

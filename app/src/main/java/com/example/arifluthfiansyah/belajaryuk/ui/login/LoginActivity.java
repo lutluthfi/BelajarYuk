@@ -38,7 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.login_content) RelativeLayout mLoginContent;
+    @BindView(R.id.login_content) RelativeLayout mLoginLayout;
     @BindView(R.id.pb_login) ProgressBar mProgressbar;
     @BindView(R.id.form_layout) LinearLayout mFormLayout;
     @BindView(R.id.et_email) EditText mEmailEditText;
@@ -79,7 +79,6 @@ public class LoginActivity extends BaseActivity {
         // store the datas
         String email = mEmailEditText.getText().toString();
         String pass = mPasswordEditText.getText().toString();
-        String playerId = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
 
         if(ValidationUtilEditText.isEmailEmpty(email) && !ValidationUtilEditText.isEmailValid(email)){
             mEmailEditText.requestFocus();
@@ -89,11 +88,11 @@ public class LoginActivity extends BaseActivity {
             mPasswordEditText.setText(getString(R.string.error_invalid_password));
         } else {
             showProgress(true);
-            doFetchingTokenData(email, pass, playerId);
+            doFetchingTokenData(email, pass);
         }
     }
 
-    private Passport getLoginPassport(String email, String pass, String playerId) {
+    private Passport getLoginPassport(String email, String pass) {
         String apiClientSecret = getResources().getString(R.string.api_client_secret);
         Passport passport = new Passport();
         passport.setClientId(1);
@@ -105,9 +104,9 @@ public class LoginActivity extends BaseActivity {
         return passport;
     }
 
-    private void doFetchingTokenData(String email, String pass, String playerId) {
+    private void doFetchingTokenData(String email, String pass) {
         mCompositeDisposable.add(ApiClient.get(this)
-                .getTokenApiCall(getLoginPassport(email, pass, playerId))
+                .getTokenApiCall(getLoginPassport(email, pass))
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -126,20 +125,22 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onError(@NonNull Throwable e) {
                 String message = getResources().getString(R.string.error_failed_login);
-                showSnackbar(mLoginContent, message);
+                showSnackbar(mLoginLayout, message);
                 showProgress(false);
             }
 
             @Override
             public void onComplete() {
-                doFetchingUserData();
+                String playerId = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
+                doFetchingUserData(playerId);
             }
         };
     }
 
-    private void doFetchingUserData() {
+    //TODO Post playerId and get User datas. Latest changes here
+    private void doFetchingUserData(String playerId) {
         mCompositeDisposable.add(ApiClient.get(this)
-                .getUserApiCall(getAuthorizationKey())
+                .getUserApiCall(getAuthorizationKey(), playerId)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -44,29 +45,18 @@ public class HomeFragment extends Fragment implements
     private Runnable mRunnable;
     private Handler mHandler;
 
-    @BindView(R.id.vp_upcoming)
-    ViewPager mUpcomingViewPager;
-
-    @BindView(R.id.cv_belajaryuk)
-    CardView mBelajaryukCardView;
-
-    @BindView(R.id.cv_diskusiyuk)
-    CardView mDiskusiyukCardView;
-
-    @BindView(R.id.cv_donasiyuk)
-    CardView mDonasiyukCardView;
-
-    @BindView(R.id.cv_bacayuk)
-    CardView mBacayukCardView;
-
-    @BindView(R.id.cv_kesiniyuk)
-    CardView mKesiniyukCardView;
+    @BindView(R.id.vp_upcoming) ViewPager mUpcomingViewPager;
+    @BindView(R.id.cv_belajaryuk) CardView mBelajaryukCardView;
+    @BindView(R.id.cv_diskusiyuk) CardView mDiskusiyukCardView;
+    @BindView(R.id.cv_donasiyuk) CardView mDonasiyukCardView;
+    @BindView(R.id.cv_bacayuk) CardView mBacayukCardView;
+    @BindView(R.id.cv_kesiniyuk) CardView mKesiniyukCardView;
 
     private List<Integer> mImages;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -82,7 +72,9 @@ public class HomeFragment extends Fragment implements
     private void setupTitleFragment() {
         String titleFragment = mContext.getResources()
                 .getString(R.string.title_fragment_home);
-        getActivity().setTitle(titleFragment);
+        if (getActivity() != null) {
+            getActivity().setTitle(titleFragment);
+        }
     }
 
     private void setupContentSlider() {
@@ -149,9 +141,7 @@ public class HomeFragment extends Fragment implements
     }
 
     @Override
-    public void onPageScrolled(int position,
-                               float positionOffset,
-                               int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
 
     @Override

@@ -49,6 +49,9 @@ public class Pengajar implements Serializable{
     @SerializedName("aktif")
     @Expose
     private Integer aktif;
+    @SerializedName("tarif")
+    @Expose
+    private Integer tarif;
     @SerializedName("ulasan")
     @Expose
     private Ulasans ulasans;
@@ -161,6 +164,14 @@ public class Pengajar implements Serializable{
 
     public void setAktif(Integer aktif) {
         this.aktif = aktif;
+    }
+
+    public Integer getTarif() {
+        return tarif;
+    }
+
+    public void setTarif(Integer tarif) {
+        this.tarif = tarif;
     }
 
     public Ulasans getUlasans() {

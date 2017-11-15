@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,28 +42,20 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
 
     @BindView(R.id.iv_photo_pengajar)
     CircleImageView mPhotoPengajarImageView;
-
     @BindView(R.id.tv_name_pengajar)
     TextView mNamePengajarTextView;
-
     @BindView(R.id.tv_degree_pengajar)
     TextView mDegreePengajarTextView;
-
     @BindView(R.id.tv_city_pengajar)
     TextView mCityPengajarTextView;
-
     @BindView(R.id.tv_bio_pengajar)
     TextView mBioPengajarTextView;
-
     @BindView(R.id.tv_rating_pengajar)
     TextView mRatingPengajarTextView;
-
     @BindView(R.id.tv_review_pengajar)
     TextView mReviewPengajarTextView;
-
     @BindView(R.id.tv_answers_pengajar)
     TextView mAnswersPengajarTextView;
-
     @BindView(R.id.tv_price_pengajar)
     TextView mPricePengajarTextView;
 
@@ -81,7 +75,7 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dialog_belajaryuk_profile, container, false);
@@ -90,20 +84,23 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
         return view;
     }
 
-    private Pengajar getPengajar() {
-        return (Pengajar) this.getArguments().getSerializable("keyPengajar");
+    private Pengajar getPengajarData() {
+        if (getArguments() != null) {
+            return (Pengajar) getArguments().getSerializable("keyPengajar");
+        }
+        return null;
     }
 
     private void setupPengajarData() {
-        if (getPengajar() != null) {
-            String photoPengajar = getPengajar().getFoto();
-            String namePengajar = getPengajar().getNama();
-            String degreePengajar = getPengajar().getPendidikanTerakhir();
-            String cityPengajar = getPengajar().getKota();
-            String bioPengajar = getPengajar().getBio();
-            String ratingPengajar = getRatingPengajar(getPengajar().getUlasans().getUlasans());
-            int reviewPengajar = getPengajar().getUlasans().getUlasans().size();
-            int answersPengajar = getPengajar().getJawabans().getJawabans().size();
+        if (getPengajarData() != null) {
+            String photoPengajar = getPengajarData().getFoto();
+            String namePengajar = getPengajarData().getNama();
+            String degreePengajar = getPengajarData().getPendidikanTerakhir();
+            String cityPengajar = getPengajarData().getKota();
+            String bioPengajar = getPengajarData().getBio();
+            String ratingPengajar = getRatingPengajar(getPengajarData().getUlasans().getUlasans());
+            int reviewPengajar = getPengajarData().getUlasans().getUlasans().size();
+            int answersPengajar = getPengajarData().getJawabans().getJawabans().size();
             Glide.with(mContext)
                     .load(photoPengajar)
                     .asBitmap()
@@ -131,15 +128,18 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
     @OnClick(R.id.btn_order_pengajar)
     public void doOrderPengajar(View view) {
         Intent intent = BelajaryukOrderConfirmActivity.getStartIntent(mContext);
+        intent.putExtra("keyPengajar", getPengajarData());
         startActivity(intent);
     }
 
     @OnClick(R.id.btn_call_pengajar)
     public void doCallPengajar(View view) {
-        String phonePengajar = getPengajar().getNoTelp();
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + phonePengajar));
-        startActivity(intent);
+        if (getPengajarData() != null) {
+            String phonePengajar = getPengajarData().getNoTelp();
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phonePengajar));
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.btn_profile_pengajar)
@@ -149,15 +149,17 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
 
     @OnClick(R.id.btn_email_pengajar)
     public void doEmailPengajar(View view) {
-        String emailPengajar = getPengajar().getEmail();
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setData(Uri.parse("mailto:"));
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, emailPengajar);
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            showToastMessage(e.getMessage());
+        if (getPengajarData() != null) {
+            String emailPengajar = getPengajarData().getEmail();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setData(Uri.parse("mailto:"));
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_EMAIL, emailPengajar);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                showToastMessage(e.getMessage());
+            }
         }
     }
 

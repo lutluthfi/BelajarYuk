@@ -15,11 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajar;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajars;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
+import com.thefinestartist.Base;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,23 +31,16 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class BelajaryukActivity extends AppCompatActivity implements
+public class BelajaryukActivity extends BaseActivity implements
         SwipeRefreshLayout.OnRefreshListener, BelajaryukAdapter.BelajaryukListener {
 
     private static final String TAG = BelajaryukActivity.class.getSimpleName();
-    private int currentPage = 1;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.belajaryuk_content)
-    SwipeRefreshLayout mBelajaryukRefreshLayout;
-
-    @BindView(R.id.rv_belajaryuk)
-    RecyclerView mBelajaryukRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.belajaryuk_content) SwipeRefreshLayout mBelajaryukRefreshLayout;
+    @BindView(R.id.rv_belajaryuk) RecyclerView mBelajaryukRecyclerView;
 
     private BelajaryukAdapter mBelajaryukAdapter;
-    private GridLayoutManager mLayoutManager;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     public static Intent getStartIntent(Context context) {
@@ -98,14 +93,14 @@ public class BelajaryukActivity extends AppCompatActivity implements
         switch (id) {
             case R.id.action_search:
                 String message = getResources().getString(R.string.example_name);
-                showSnackbar("Search " + message);
+                showSnackbar(mBelajaryukRefreshLayout,"Search " + message);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void setupRecyclerView() {
-        mLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         mBelajaryukRecyclerView.setHasFixedSize(true);
         mBelajaryukRecyclerView.setLayoutManager(mLayoutManager);
         mBelajaryukAdapter = new BelajaryukAdapter(this);
@@ -119,7 +114,7 @@ public class BelajaryukActivity extends AppCompatActivity implements
     private void doFetchingPengajarData() {
         onRefreshing();
         mCompositeDisposable.add(ApiClient.get(this)
-                .getPengajarApiCall(getUserCity(), currentPage)
+                .getPengajarApiCall(getUserCity(), 1)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -137,7 +132,7 @@ public class BelajaryukActivity extends AppCompatActivity implements
 
             @Override
             public void onError(@NonNull Throwable e) {
-                showToasMessage(e.getMessage());
+                showToastMessage(e.getMessage());
                 finish();
             }
 
@@ -168,15 +163,6 @@ public class BelajaryukActivity extends AppCompatActivity implements
 
     private void stopRefreshing() {
         mBelajaryukRefreshLayout.setRefreshing(false);
-    }
-
-    private void showToasMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showSnackbar(String message) {
-        Snackbar.make(mBelajaryukRefreshLayout, message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
     @Override

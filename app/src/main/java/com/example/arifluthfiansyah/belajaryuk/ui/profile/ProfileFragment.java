@@ -307,7 +307,7 @@ public class ProfileFragment extends Fragment {
                 System.currentTimeMillis() + "_img_belajaryuk.jpeg");
     }
 
-    //TODO belum bisa update data user
+    //TODO Not yet upadate user datas
     @OnClick(R.id.btn_save_profile_user)
     public void doSaveProfileUser(View view) {
         showToastMessage("Fitur masih belum bisa");

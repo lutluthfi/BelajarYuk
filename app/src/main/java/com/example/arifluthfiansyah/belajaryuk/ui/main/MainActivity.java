@@ -12,15 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.R;
-import com.example.arifluthfiansyah.belajaryuk.controller.UserController;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
-import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.ui.history.HistoryFragment;
 import com.example.arifluthfiansyah.belajaryuk.ui.home.HomeFragment;
 import com.example.arifluthfiansyah.belajaryuk.ui.notification.NotificationFragment;
@@ -31,21 +28,15 @@ import java.lang.reflect.Field;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.annotations.NonNull;
-import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener, ProfileFragment.ProfileFragmentListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.content_layout)
-    FrameLayout mContentLayout;
-
-    @BindView(R.id.bottom_navigation)
-    BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.content_layout) FrameLayout mContentLayout;
+    @BindView(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
     private Fragment mFragment;
     private FragmentManager mFragmentManager;

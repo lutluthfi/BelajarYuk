@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Berita;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Beritas;
@@ -26,21 +27,17 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class BacayukActivity extends AppCompatActivity implements
+public class BacayukActivity extends BaseActivity implements
         SwipeRefreshLayout.OnRefreshListener, BacayukAdapter.BacayukListener {
 
     private static final String TAG = BacayukActivity.class.getSimpleName();
-    private final int itemGridCount = 2;
-    private int currentPage = 1;
+    private final int itemGridCount = 2; // Var for span of grid
+    private int currentPage = 1; // Var for pagination
 
-    @BindView(R.id.bacayuk_content)
-    SwipeRefreshLayout mBacayukRefreshLayout;
-
-    @BindView(R.id.rv_bacayuk)
-    RecyclerView mBacayukRecyclerView;
+    @BindView(R.id.bacayuk_content) SwipeRefreshLayout mBacayukRefreshLayout;
+    @BindView(R.id.rv_bacayuk) RecyclerView mBacayukRecyclerView;
 
     private BacayukAdapter mBacayukAdapter;
-    private LinearLayoutManager mLayoutManager;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     public static Intent getStartIntent(Context context) {
@@ -76,7 +73,7 @@ public class BacayukActivity extends AppCompatActivity implements
     }
 
     private void setupRecyclerView() {
-        mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mBacayukRecyclerView.setHasFixedSize(true);
         mBacayukRecyclerView.setLayoutManager(mLayoutManager);
@@ -85,9 +82,9 @@ public class BacayukActivity extends AppCompatActivity implements
     }
 
     private void doFetchingBeritasData() {
-        onRefreshing();
+        mBacayukRefreshLayout.setRefreshing(true);
         mCompositeDisposable.add(ApiClient.get(this)
-                .getBeritaApiCall(currentPage)
+                .getBeritaApiCall(1)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -105,14 +102,14 @@ public class BacayukActivity extends AppCompatActivity implements
 
             @Override
             public void onError(@NonNull Throwable e) {
-                showToasMessage(e.getMessage());
+                showToastMessage(e.getMessage());
                 finish();
             }
 
             @Override
             public void onComplete() {
                 Log.d(TAG, "Complete Fetching Berita");
-                stopRefreshing();
+                mBacayukRefreshLayout.setRefreshing(false);
             }
         };
     }
@@ -128,23 +125,6 @@ public class BacayukActivity extends AppCompatActivity implements
     public void onRefresh() {
         mBacayukAdapter.clearBeritas();
         doFetchingBeritasData();
-    }
-
-    private void onRefreshing() {
-        mBacayukRefreshLayout.setRefreshing(true);
-    }
-
-    private void stopRefreshing() {
-        mBacayukRefreshLayout.setRefreshing(false);
-    }
-
-    private void showToasMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showSnackbar(String message) {
-        Snackbar.make(mBacayukRefreshLayout, message, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
     @Override

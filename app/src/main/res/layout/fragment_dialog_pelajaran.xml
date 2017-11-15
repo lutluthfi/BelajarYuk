@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/diskusiyuk_pelajaran_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/prompt_course"
+        style="@style/MyHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="@string/prompt_course" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_diskusiyuk_pelajaran"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prompt_course"
+        android:layout_margin="@dimen/_4sdp" />
+
+    <ProgressBar
+        android:id="@+id/pb_diskusiyuk_pelajaran"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -4,7 +4,7 @@
     <string name="app_tag_line">&quot; Generasi berilmu akan menciptakan bangsa yang cerdas &quot;</string>
     <string name="api_url">http://belajaryuk.viralio.media/</string>
     <string name="api_header_accept">application/json</string>
-    <string name="api_client_secret">x0BNvYt9Vt6RLO5zMokUHIb8Fgv6BPkWGZjHKzrA</string>
+    <string name="api_client_secret">rDPezehpjmQvK9KbZ8rBJXkzkbQJga8Y12gksEj6</string>
     <!-- Example -->
     <string name="example_name">Arif Luthfiansyah</string>
     <string name="example_nim">155150207111160</string>
@@ -16,7 +16,7 @@
     <string name="example_district">Lowokwaru</string>
     <string name="example_course">Matematika</string>
     <string name="example_phone">+62852 9062 4676</string>
-    <string name="example_number">99</string>
+    <string name="example_number">0</string>
     <string name="example_price">100.000</string>
     <string name="prompt_rating">Rating</string>
     <string name="prompt_review">Ulasan</string>
@@ -59,6 +59,7 @@
     <string name="title_activity_detail_kesiniyuk">DetailKesiniyukActivity</string>
     <string name="title_activity_donasiyuk">DonasiyukActivity</string>
     <string name="title_activity_diskusiyuk">DiskusiyukActivity</string>
+    <string name="title_activity_pelajaran_diskusiyuk">DiskusiyukPelajaranActivity</string>
     <string name="title_activity_detail_diskusiyuk">DiskusiyukDetailActivity</string>
     <string name="title_fragment_home">Home</string>
     <string name="title_fragment_history">History</string>

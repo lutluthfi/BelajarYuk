@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.thunderrise.animations.PulseAnimation;
 
@@ -15,14 +16,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BelajaryukOrderActivity extends AppCompatActivity implements
+public class BelajaryukOrderActivity extends BaseActivity implements
         BelajaryukCancelFragmentDialog.BelajaryukCancelListener {
 
     private static final String TAG = BelajaryukOrderActivity.class.getSimpleName();
-    private final int durationPulse = 800;
 
-    @BindView(R.id.iv_loading)
-    CircleImageView mLoadingImageView;
+    @BindView(R.id.iv_loading) CircleImageView mLoadingImageView;
 
     private BelajaryukCancelFragmentDialog mBelajaryukCancelFragment;
 
@@ -41,7 +40,7 @@ public class BelajaryukOrderActivity extends AppCompatActivity implements
     private void onWaitingAcceptFromPengajar() {
         PulseAnimation.create()
                 .with(mLoadingImageView)
-                .setDuration(durationPulse)
+                .setDuration(800)
                 .setRepeatCount(PulseAnimation.INFINITE)
                 .setRepeatMode(PulseAnimation.REVERSE)
                 .start();
@@ -65,10 +64,6 @@ public class BelajaryukOrderActivity extends AppCompatActivity implements
         String message = getResources().getString(R.string.prompt_no_cancel);
         showToastMessage(message);
         mBelajaryukCancelFragment.dismiss();
-    }
-
-    private void showToastMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

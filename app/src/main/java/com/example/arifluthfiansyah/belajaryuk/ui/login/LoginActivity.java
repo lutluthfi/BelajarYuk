@@ -16,11 +16,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
+import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajar;
+import com.example.arifluthfiansyah.belajaryuk.network.model.PlayerID;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Users;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
 import com.example.arifluthfiansyah.belajaryuk.ui.main.MainActivity;
 import com.example.arifluthfiansyah.belajaryuk.ui.signup.SignupActivity;
@@ -30,6 +35,7 @@ import com.onesignal.OneSignal;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -38,6 +44,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
+
+    @BindView(R.id.iv_app_logo) CircleImageView mAppLogoImageView;
     @BindView(R.id.login_content) RelativeLayout mLoginLayout;
     @BindView(R.id.pb_login) ProgressBar mProgressbar;
     @BindView(R.id.form_layout) LinearLayout mFormLayout;
@@ -74,39 +83,68 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btn_login)
     public void doLogin(View view) {
-        setErrorView(null);
+        mEmailEditText.setError(null);
+        mPasswordEditText.setError(null);
 
         // store the datas
+        int clientID = 1;
+        if (getUserLevelKey().equals("user")) {
+            clientID = 1;
+        } else if (getUserLevelKey().equals("pengajar")) {
+            clientID = 2;
+        }
         String email = mEmailEditText.getText().toString();
         String pass = mPasswordEditText.getText().toString();
 
-        if(ValidationUtilEditText.isEmailEmpty(email) && !ValidationUtilEditText.isEmailValid(email)){
+        if (ValidationUtilEditText.isEmailEmpty(email) && !ValidationUtilEditText.isEmailValid(email)) {
             mEmailEditText.requestFocus();
-            mEmailEditText.setText(getString(R.string.error_invalid_email));
-        } else if(ValidationUtilEditText.isPasswordEmpty(pass) && !ValidationUtilEditText.isPasswordValid(pass)) {
+            mEmailEditText.setError(getString(R.string.error_invalid_email));
+        } else if (ValidationUtilEditText.isPasswordEmpty(pass) && !ValidationUtilEditText.isPasswordValid(pass)) {
             mPasswordEditText.requestFocus();
-            mPasswordEditText.setText(getString(R.string.error_invalid_password));
+            mPasswordEditText.setError(getString(R.string.error_invalid_password));
         } else {
             showProgress(true);
-            doFetchingTokenData(email, pass);
+            doFetchingTokenData(clientID, email, pass);
         }
     }
 
-    private Passport getLoginPassport(String email, String pass) {
-        String apiClientSecret = getResources().getString(R.string.api_client_secret);
+    @OnClick(R.id.btn_renew_user)
+    public void changeUserLogin(View view) {
+        String userLevel = getUserLevelKey();
+        switch (userLevel) {
+            case "pengajar":
+                setUserLevelKey("user"); // User level is Pelajar
+                showSnackbar(mLoginLayout, "Halo pelajar!");
+                Glide.with(this).load(R.drawable.img_belajaryuk_reverse).into(mAppLogoImageView);
+                break;
+            case "user":
+                setUserLevelKey("pengajar"); // User level is Pengajar
+                showSnackbar(mLoginLayout, "Halo pengajar!");
+                Glide.with(this).load(R.drawable.img_belajaryuk_green).into(mAppLogoImageView);
+                break;
+        }
+    }
+
+    private Passport getPassport(int clientId, String email, String pass) {
+        String apiClientSecret = "";
+        if (getUserLevelKey().equals("user")) {
+            apiClientSecret = getResources().getString(R.string.api_client_secret_pelajar);
+        } else if (getUserLevelKey().equals("pengajar")) {
+            apiClientSecret = getResources().getString(R.string.api_client_secret_pengajar);
+        }
         Passport passport = new Passport();
-        passport.setClientId(1);
+        passport.setClientId(clientId);
         passport.setClientSecret(apiClientSecret);
         passport.setUsername(email);
         passport.setPassword(pass);
         passport.setGrantType("password");
-        passport.setTheNewProvider("user");
+        passport.setTheNewProvider(getUserLevelKey());
         return passport;
     }
 
-    private void doFetchingTokenData(String email, String pass) {
+    private void doFetchingTokenData(int clientId, String email, String pass) {
         mCompositeDisposable.add(ApiClient.get(this)
-                .getTokenApiCall(getLoginPassport(email, pass))
+                .getTokenApiCall(getPassport(clientId, email, pass))
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -119,6 +157,7 @@ public class LoginActivity extends BaseActivity {
         return new DisposableObserver<Token>() {
             @Override
             public void onNext(@NonNull Token token) {
+                printLog(TAG, "Token: "+ token.getAccessToken());
                 setAuthorizationKey(token.getAccessToken());
             }
 
@@ -131,14 +170,18 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onComplete() {
-                String playerId = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
-                doFetchingUserData(playerId);
+                String playerID = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
+                PlayerID pid = new PlayerID(playerID);
+                if (getUserLevelKey().equals("user")) {
+                    doFetchingUserData(pid);
+                } else if (getUserLevelKey().equals("pengajar")) {
+                    doFetchingPengajarData(pid);
+                }
             }
         };
     }
 
-    //TODO Post playerId and get User datas. Latest changes here
-    private void doFetchingUserData(String playerId) {
+    private void doFetchingUserData(PlayerID playerId) {
         mCompositeDisposable.add(ApiClient.get(this)
                 .getUserApiCall(getAuthorizationKey(), playerId)
                 .onBackpressureDrop()
@@ -154,12 +197,51 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onNext(@NonNull User user) {
                 String name = user.getNama();
+                String location = user.getKecamatan();
+                setUserCityKey(location);
                 showToastMessage("Selamat datang " + name);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d("", e.getMessage());
+                printLog(TAG, e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                showProgress(false);
+                setIsLoggedIn();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        };
+    }
+
+    private void doFetchingPengajarData(PlayerID playerId) {
+        mCompositeDisposable.add(ApiClient.get(this)
+                .getPengajarApiCall(getAuthorizationKey(), playerId)
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverPengajar())
+        );
+    }
+
+    private DisposableObserver<Pengajar> getObserverPengajar() {
+        return new DisposableObserver<Pengajar>() {
+            @Override
+            public void onNext(@NonNull Pengajar pengajar) {
+                String name = pengajar.getNama();
+                String location = pengajar.getKecamatan();
+                setUserCityKey(location);
+                showToastMessage("Selamat datang " + name);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                printLog(TAG, e.getMessage());
             }
 
             @Override
@@ -176,11 +258,6 @@ public class LoginActivity extends BaseActivity {
     private void showProgress(boolean show) {
         mProgressbar.setVisibility(show ? View.VISIBLE : View.GONE);
         mFormLayout.setVisibility(show ? View.GONE : View.VISIBLE);
-    }
-
-    private void setErrorView(String message) {
-        mEmailEditText.setError(message);
-        mPasswordEditText.setError(message);
     }
 
     @Override

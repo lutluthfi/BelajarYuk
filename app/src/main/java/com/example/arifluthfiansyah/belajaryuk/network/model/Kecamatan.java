@@ -15,6 +15,12 @@ public class Kecamatan {
     @SerializedName("nama")
     @Expose
     private String nama;
+    @SerializedName("kabupaten")
+    @Expose
+    private Kabupaten kabupaten;
+    @SerializedName("kelurahan")
+    @Expose
+    private Kelurahan kelurahan;
 
     public Integer getId() {
         return id;
@@ -30,5 +36,26 @@ public class Kecamatan {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public Kabupaten getKabupaten() {
+        return kabupaten;
+    }
+
+    public void setKabupaten(Kabupaten kabupaten) {
+        this.kabupaten = kabupaten;
+    }
+
+    public Kelurahan getKelurahan() {
+        return kelurahan;
+    }
+
+    public void setKelurahan(Kelurahan kelurahan) {
+        this.kelurahan = kelurahan;
+    }
+
+    @Override
+    public String toString() {
+        return nama;
     }
 }

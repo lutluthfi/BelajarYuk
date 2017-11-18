@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-import io.realm.RealmObject;
-
 /**
  * Created by Arif Luthfiansyah on 29/10/2017.
  */
@@ -25,9 +23,9 @@ public class Jawaban implements Serializable{
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-    @SerializedName("subject")
+    @SerializedName("subjectData")
     @Expose
-    private Subject subject;
+    private SubjectData subjectData;
 
     public Integer getId() {
         return id;
@@ -61,11 +59,11 @@ public class Jawaban implements Serializable{
         this.createdAt = createdAt;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public SubjectData getSubjectData() {
+        return subjectData;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubjectData(SubjectData subjectData) {
+        this.subjectData = subjectData;
     }
 }

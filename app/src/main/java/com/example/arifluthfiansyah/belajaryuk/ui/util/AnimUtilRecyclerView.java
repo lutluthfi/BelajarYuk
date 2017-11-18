@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
  * Created by Arif Luthfiansyah on 21/09/2017.
  */
 
-public class AnimationUtilRecyclerView {
+public class AnimUtilRecyclerView {
 
     public static void setAnimation(RecyclerView.ViewHolder viewHolder) {
         ObjectAnimator.ofFloat(viewHolder.itemView, "translationY", 500, 0)

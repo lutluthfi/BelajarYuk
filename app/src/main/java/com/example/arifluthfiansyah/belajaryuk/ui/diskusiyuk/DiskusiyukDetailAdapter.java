@@ -51,8 +51,8 @@ public class DiskusiyukDetailAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Context context = ((DiskusiyukDetailViewHolder) holder).itemView.getContext();
-        String photo = mJawabans.get(position).getSubject().getFoto();
-        String name = mJawabans.get(position).getSubject().getNama();
+        String photo = mJawabans.get(position).getSubjectData().getFoto();
+        String name = mJawabans.get(position).getSubjectData().getNama();
         String content = mJawabans.get(position).getKonten();
 
         // Binding datas with views

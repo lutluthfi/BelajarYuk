@@ -11,6 +11,7 @@ public class AppPreferencesHelper {
 
     private static final String PREF_NAME = "BELAJARYUK";
     private static final String PREF_KEY_IS_FIRST_TIME         = "PREF_KEY_IS_FIRST_TIME";
+    private static final String PREF_KEY_USER_LEVEL            = "PREF_KEY_USER_LEVEL";
     private static final String PREF_KEY_IS_LOGGED_IN          = "PREF_KEY_USER_ARE_LOGGED_IN";
     private static final String PREF_KEY_USER_AUTHORIZATION    = "PREF_KEY_USER_AUTHORIZATION";
     private static final String PREF_KEY_USER_CITY             = "PREF_KEY_USER_CITY";
@@ -46,7 +47,15 @@ public class AppPreferencesHelper {
         return mPrefs.getBoolean(PREF_KEY_IS_FIRST_TIME, false);
     }
 
-    public void setKeyUserAuthorization(String authorization) {
+    public void setUserLevel(String level) {
+        mPrefs.edit().putString(PREF_KEY_USER_LEVEL, level).apply();
+    }
+
+    public String getUserLevel() {
+        return mPrefs.getString(PREF_KEY_USER_LEVEL, "user");
+    }
+
+    public void setUserAuthorization(String authorization) {
         mPrefs.edit().putString(PREF_KEY_USER_AUTHORIZATION, "Bearer " + authorization).apply();
     }
 

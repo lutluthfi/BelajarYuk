@@ -3,6 +3,7 @@ package com.example.arifluthfiansyah.belajaryuk.ui.history;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,27 +26,24 @@ public class HistoryFragment extends Fragment {
     private Context mContext;
     private Unbinder mUnbinder;
 
-    @BindView(R.id.textView)
-    TextView textView;
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
         setHasOptionsMenu(true);
-        //TODO jangan lupa di benerin
-        textView.setText(mContext.getResources().getString(R.string.title_fragment_history));
         return view;
     }
 
     private void setupTitleFragment() {
         String title = mContext.getResources()
                 .getString(R.string.title_fragment_history);
-        getActivity().setTitle(title);
+        if (getActivity() != null) {
+            getActivity().setTitle(title);
+        }
     }
 
     @Override

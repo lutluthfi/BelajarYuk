@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_pelajar, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         setupTitleFragment();
         setHasOptionsMenu(true);

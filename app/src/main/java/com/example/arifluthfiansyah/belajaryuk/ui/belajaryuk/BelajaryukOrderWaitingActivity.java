@@ -3,10 +3,6 @@ package com.example.arifluthfiansyah.belajaryuk.ui.belajaryuk;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
@@ -16,23 +12,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BelajaryukOrderActivity extends BaseActivity implements
+public class BelajaryukOrderWaitingActivity extends BaseActivity implements
         BelajaryukCancelFragmentDialog.BelajaryukCancelListener {
-
-    private static final String TAG = BelajaryukOrderActivity.class.getSimpleName();
 
     @BindView(R.id.iv_loading) CircleImageView mLoadingImageView;
 
     private BelajaryukCancelFragmentDialog mBelajaryukCancelFragment;
 
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, BelajaryukOrderActivity.class);
+        return new Intent(context, BelajaryukOrderWaitingActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_belajaryuk_order);
+        setContentView(R.layout.activity_belajaryuk_order_waiting);
         ButterKnife.bind(this);
         onWaitingAcceptFromPengajar();
     }

@@ -21,6 +21,8 @@ import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajar;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Pengajars;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
+import com.example.arifluthfiansyah.belajaryuk.notification.NotificationReceivedHandler;
+import com.onesignal.OneSignal;
 import com.thefinestartist.Base;
 
 import butterknife.BindView;
@@ -43,6 +45,7 @@ public class BelajaryukActivity extends BaseActivity implements
     private BelajaryukAdapter mBelajaryukAdapter;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
+
     public static Intent getStartIntent(Context context) {
         return new Intent(context, BelajaryukActivity.class);
     }
@@ -64,12 +67,13 @@ public class BelajaryukActivity extends BaseActivity implements
 
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
-        String title = getUserCity();
-        String subtitle = getResources().getString(R.string.example_course);
+        String title = getResources().getString(R.string.example_course);
+        String subtitle = getUserCityKey();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(title);
             getSupportActionBar().setSubtitle(subtitle);
+            printLog(TAG, "Lokasi pelajar: " + subtitle);
         }
     }
 
@@ -107,14 +111,10 @@ public class BelajaryukActivity extends BaseActivity implements
         mBelajaryukRecyclerView.setAdapter(mBelajaryukAdapter);
     }
 
-    private String getUserCity() {
-        return AppPreferencesHelper.with(this).getUserCity();
-    }
-
     private void doFetchingPengajarData() {
-        onRefreshing();
+        mBelajaryukRefreshLayout.setRefreshing(true);
         mCompositeDisposable.add(ApiClient.get(this)
-                .getPengajarApiCall(getUserCity(), 1)
+                .getPengajarApiCall(getUserCityKey(), 1)
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -138,8 +138,8 @@ public class BelajaryukActivity extends BaseActivity implements
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching Pengajar");
-                stopRefreshing();
+                printLog(TAG, "Complete fetching pengajars");
+                mBelajaryukRefreshLayout.setRefreshing(false);
             }
         };
     }
@@ -155,14 +155,6 @@ public class BelajaryukActivity extends BaseActivity implements
     public void onRefresh() {
         mBelajaryukAdapter.clearPengajars();
         doFetchingPengajarData();
-    }
-
-    private void onRefreshing() {
-        mBelajaryukRefreshLayout.setRefreshing(true);
-    }
-
-    private void stopRefreshing() {
-        mBelajaryukRefreshLayout.setRefreshing(false);
     }
 
     @Override

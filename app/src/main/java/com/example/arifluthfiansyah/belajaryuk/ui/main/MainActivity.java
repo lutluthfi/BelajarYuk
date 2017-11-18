@@ -1,5 +1,6 @@
 package com.example.arifluthfiansyah.belajaryuk.ui.main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +17,12 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.belajaryuk.BaseActivity;
 import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.ui.history.HistoryFragment;
 import com.example.arifluthfiansyah.belajaryuk.ui.home.HomeFragment;
-import com.example.arifluthfiansyah.belajaryuk.ui.notification.NotificationFragment;
+import com.example.arifluthfiansyah.belajaryuk.ui.activities.ActivitiesFragment;
 import com.example.arifluthfiansyah.belajaryuk.ui.profile.ProfileFragment;
 
 import java.lang.reflect.Field;
@@ -29,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.annotations.NonNull;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends BaseActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener, ProfileFragment.ProfileFragmentListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @SuppressLint("RestrictedApi")
     private void setupBottomNavigation() {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView)
                 mBottomNavigationView.getChildAt(0);
@@ -110,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.navigation_history:
                 mFragment = new HistoryFragment();
                 break;
-            case R.id.navigation_notifications:
-                mFragment = new NotificationFragment();
+            case R.id.navigation_activies:
+                mFragment = new ActivitiesFragment();
                 break;
             case R.id.navigation_profile:
                 mFragment = new ProfileFragment();
@@ -127,10 +130,6 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();
     }
 
-    private void showToastMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void doLogout() {
         AppPreferencesHelper.with(this).clearAll();
@@ -142,10 +141,5 @@ public class MainActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         mFragment = mFragmentManager.findFragmentById(R.id.content_layout);
         mFragment.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

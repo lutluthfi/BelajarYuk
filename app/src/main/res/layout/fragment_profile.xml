@@ -108,10 +108,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_2sdp"
                     android:layout_marginStart="@dimen/_2sdp"
-                    android:text="@string/prompt_province" />
+                    android:text="@string/prompt_city" />
 
                 <Spinner
-                    android:id="@+id/sp_province"
+                    android:id="@+id/sp_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_8sdp"
@@ -132,10 +132,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_2sdp"
                     android:layout_marginStart="@dimen/_2sdp"
-                    android:text="@string/prompt_city" />
+                    android:text="@string/prompt_district" />
 
                 <Spinner
-                    android:id="@+id/sp_city"
+                    android:id="@+id/sp_district"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_8sdp"
@@ -175,7 +175,7 @@
                 android:layout_height="@dimen/_36sdp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:background="@drawable/background_button_login_splash"
+                android:background="@drawable/background_layout_rounded"
                 android:onClick="doSaveProfileUser"
                 android:text="@string/prompt_save_profile"
                 android:textColor="@color/colorWhite" />

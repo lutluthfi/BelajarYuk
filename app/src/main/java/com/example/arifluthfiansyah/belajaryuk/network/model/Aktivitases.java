@@ -4,22 +4,22 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Arif Luthfiansyah on 16/11/2017.
  */
 
-public class Subject implements Serializable {
-
+public class Aktivitases implements Serializable {
     @SerializedName("data")
     @Expose
-    private SubjectData subjectData;
+    private List<Aktivitas> aktivitas = null;
 
-    public SubjectData getSubjectData() {
-        return subjectData;
+    public List<Aktivitas> getAktivitases() {
+        return aktivitas;
     }
 
-    public void setSubjectData(SubjectData subjectData) {
-        this.subjectData = subjectData;
+    public void setAktivitases(List<Aktivitas> aktivitases) {
+        this.aktivitas = aktivitas;
     }
 }

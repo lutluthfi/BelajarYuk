@@ -7,10 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -33,10 +29,8 @@ import com.example.arifluthfiansyah.belajaryuk.R;
 import com.example.arifluthfiansyah.belajaryuk.data.AppPreferencesHelper;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupaten;
 import com.example.arifluthfiansyah.belajaryuk.network.model.Kabupatens;
-import com.example.arifluthfiansyah.belajaryuk.network.model.Passport;
-import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsi;
-import com.example.arifluthfiansyah.belajaryuk.network.model.Provinsis;
-import com.example.arifluthfiansyah.belajaryuk.network.model.Token;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kecamatan;
+import com.example.arifluthfiansyah.belajaryuk.network.model.Kecamatans;
 import com.example.arifluthfiansyah.belajaryuk.network.model.User;
 import com.example.arifluthfiansyah.belajaryuk.network.rest.ApiClient;
 import com.mlsdev.rximagepicker.RxImageConverters;
@@ -44,8 +38,6 @@ import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +63,7 @@ import static com.thefinestartist.utils.content.ContextUtil.getExternalFilesDir;
 // Class of user profile who are logged in
 public class ProfileFragment extends Fragment {
 
+    //TODO Setup if use whose login is Pengajar
     private static final String TAG = ProfileFragment.class.getSimpleName();
     private Context mContext;
     private Unbinder mUnbinder;
@@ -80,16 +73,16 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.tv_change_photo) TextView mChangePhotoTextView;
     @BindView(R.id.et_name_user) EditText mNameUserEditText;
     @BindView(R.id.et_handphone_user) EditText mHandphoneUserEditText;
-    @BindView(R.id.sp_province) Spinner mProvinceSpinner;
     @BindView(R.id.sp_city) Spinner mCitySpinner;
+    @BindView(R.id.sp_district) Spinner mDistrictSpinner;
     @BindView(R.id.et_address_user) EditText mAddressUserEditText;
     @BindView(R.id.btn_save_profile_user) Button mSaveProfileUserButton;
     @BindView(R.id.pb_fragment_profile) ProgressBar mProgressbar;
 
     private ProfileFragmentListener mListener;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-    private ArrayAdapter<Provinsi> mProvinsiSpinnerAdapter;
     private ArrayAdapter<Kabupaten> mKabupatenSpinnerAdapter;
+    private ArrayAdapter<Kecamatan> mKecamatanSpinnerAdapter;
 
     @Nullable
     @Override
@@ -129,18 +122,20 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private String getKeyUserAuthorization() {
+    private String getAuthorizationKey() {
+        Log.d(TAG, "Token: " + AppPreferencesHelper.with(mContext).getUserAuthorization());
         return AppPreferencesHelper.with(mContext).getUserAuthorization();
     }
 
-    private String getKeyUserCity() {
+    private String getUserCityKey() {
         return AppPreferencesHelper.with(mContext).getUserCity();
     }
 
+    // Guess got bug here
     private void doFetchingUserData() {
         showProgress(true);
         mCompositeDisposable.add(ApiClient.get(mContext)
-                .getUserApiCall(getKeyUserAuthorization())
+                .getUserApiCall(getAuthorizationKey())
                 .onBackpressureDrop()
                 .toObservable()
                 .subscribeOn(Schedulers.io())
@@ -153,19 +148,12 @@ public class ProfileFragment extends Fragment {
         return new DisposableObserver<User>() {
             @Override
             public void onNext(@NonNull User user) {
-                String photo = user.getFoto();
-                String name = user.getNama();
-                String handphone = user.getNoTelp();
-                String address = user.getAlamat();
-                Glide.with(mContext)
-                        .load(photo)
-                        .centerCrop()
-                        .into(mPhotoUserImageView);
-                mNameUserEditText.setText(name);
-                mHandphoneUserEditText.setText(handphone);
-                mAddressUserEditText.setText(address);
-                doFetchingProvinsisData();
+                Glide.with(mContext).load(user.getFoto()).asBitmap().centerCrop().into(mPhotoUserImageView);
+                mNameUserEditText.setText(user.getNama());
+                mHandphoneUserEditText.setText(user.getNoTelp());
+                mAddressUserEditText.setText(user.getAlamat());
                 doFetchingKabupatensData();
+                doFetchingKecamatansData();
             }
 
             @Override
@@ -183,43 +171,6 @@ public class ProfileFragment extends Fragment {
         };
     }
 
-    private void doFetchingProvinsisData() {
-        mCompositeDisposable.add(ApiClient.get(mContext)
-                .getProvinsiApiCall()
-                .onBackpressureDrop()
-                .toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(getObserverProvinsi())
-        );
-    }
-
-    private DisposableObserver<Provinsis> getObserverProvinsi() {
-        return new DisposableObserver<Provinsis>() {
-            @Override
-            public void onNext(@NonNull Provinsis provinsis) {
-                mProvinsiSpinnerAdapter = new ArrayAdapter<Provinsi>(
-                        mContext,
-                        android.R.layout.simple_spinner_item,
-                        provinsis.getProvinsis()
-                );
-                mProvinsiSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                mProvinceSpinner.setAdapter(mProvinsiSpinnerAdapter);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                String message = getResources().getString(R.string.error_failed_fetch_data);
-                showToastMessage(message);
-            }
-
-            @Override
-            public void onComplete() {
-                Log.d(TAG, "Complete Fetching Provinsi");
-            }
-        };
-    }
-
     private void doFetchingKabupatensData() {
         mCompositeDisposable.add(ApiClient.get(mContext)
                 .getKabupatenApiCall()
@@ -227,11 +178,12 @@ public class ProfileFragment extends Fragment {
                 .toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(getObserverKabupaten())
+                .subscribeWith(getObserverKabupatens())
         );
     }
 
-    private DisposableObserver<Kabupatens> getObserverKabupaten() {
+    //TODO Kabupaten and Kecamatan spinner selected item still random
+    private DisposableObserver<Kabupatens> getObserverKabupatens() {
         return new DisposableObserver<Kabupatens>() {
             @Override
             public void onNext(@NonNull Kabupatens kabupatens) {
@@ -250,7 +202,42 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "Complete Fetching Kabupaten");
+                Log.d(TAG, "Complete fetching kabupatens");
+            }
+        };
+    }
+
+    private void doFetchingKecamatansData() {
+        mCompositeDisposable.add(ApiClient.get(mContext)
+                .getKecamatanApiCall()
+                .onBackpressureDrop()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserverKecamatans())
+        );
+    }
+
+    private DisposableObserver<Kecamatans> getObserverKecamatans() {
+        return new DisposableObserver<Kecamatans>() {
+            @Override
+            public void onNext(@NonNull Kecamatans kecamatans) {
+                mKecamatanSpinnerAdapter = new ArrayAdapter<Kecamatan>(
+                        mContext, android.R.layout.simple_spinner_item, kecamatans.getKecamatans()
+                );
+                mKecamatanSpinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                mDistrictSpinner.setAdapter(mKecamatanSpinnerAdapter);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                String message = getResources().getString(R.string.error_failed_fetch_data);
+                showToastMessage(message);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "Complete fetching kecamatans");
             }
         };
     }
@@ -307,10 +294,10 @@ public class ProfileFragment extends Fragment {
                 System.currentTimeMillis() + "_img_belajaryuk.jpeg");
     }
 
-    //TODO Not yet upadate user datas
+    //TODO Not yet to upadate user datas
     @OnClick(R.id.btn_save_profile_user)
     public void doSaveProfileUser(View view) {
-        showToastMessage("Fitur masih belum bisa");
+        showToastMessage("Under construction");
     }
 
     private void showProgress(boolean show) {

@@ -13,13 +13,13 @@ public class Kecamatans {
 
     @SerializedName("data")
     @Expose
-    private List<Kecamatans> kecamatans = null;
+    private List<Kecamatan> kecamatans = null;
 
-    public List<Kecamatans> getKecamatans() {
+    public List<Kecamatan> getKecamatans() {
         return kecamatans;
     }
 
-    public void setKecamatans(List<Kecamatans> kecamatans) {
+    public void setKecamatans(List<Kecamatan> kecamatans) {
         this.kecamatans = kecamatans;
     }
 }

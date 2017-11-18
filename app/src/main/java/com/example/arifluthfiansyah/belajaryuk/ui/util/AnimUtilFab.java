@@ -10,7 +10,7 @@ import com.example.arifluthfiansyah.belajaryuk.R;
  * Created by Arif Luthfiansyah on 19/10/2017.
  */
 
-public class AnimationUtilFab {
+public class AnimUtilFab {
 
     public static Animation getFabOpen(Context context) {
         return AnimationUtils.loadAnimation(context, R.anim.fab_open);

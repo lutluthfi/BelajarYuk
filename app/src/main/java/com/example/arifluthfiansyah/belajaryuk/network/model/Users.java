@@ -9,17 +9,17 @@ import java.io.Serializable;
  * Created by Arif Luthfiansyah on 16/11/2017.
  */
 
-public class Subject implements Serializable {
+public class Users implements Serializable {
 
     @SerializedName("data")
     @Expose
-    private SubjectData subjectData;
+    private User user;
 
-    public SubjectData getSubjectData() {
-        return subjectData;
+    public User getUser() {
+        return user;
     }
 
-    public void setSubjectData(SubjectData subjectData) {
-        this.subjectData = subjectData;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

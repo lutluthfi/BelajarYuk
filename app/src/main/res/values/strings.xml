@@ -4,7 +4,8 @@
     <string name="app_tag_line">&quot; Generasi berilmu akan menciptakan bangsa yang cerdas &quot;</string>
     <string name="api_url">http://belajaryuk.viralio.media/</string>
     <string name="api_header_accept">application/json</string>
-    <string name="api_client_secret">rDPezehpjmQvK9KbZ8rBJXkzkbQJga8Y12gksEj6</string>
+    <string name="api_client_secret_pelajar">84j4dyLv78OqJO868Z4UOp7h4SbxPyt4Qv1exu7X</string>
+    <string name="api_client_secret_pengajar">KFXPV1QHwaYa3bIBRcSZq223Z0tvF7rg0UprjFYG</string>
     <!-- Example -->
     <string name="example_name">Arif Luthfiansyah</string>
     <string name="example_nim">155150207111160</string>
@@ -16,7 +17,7 @@
     <string name="example_district">Lowokwaru</string>
     <string name="example_course">Matematika</string>
     <string name="example_phone">+62852 9062 4676</string>
-    <string name="example_number">0</string>
+    <string name="example_number">1</string>
     <string name="example_price">100.000</string>
     <string name="prompt_rating">Rating</string>
     <string name="prompt_review">Ulasan</string>
@@ -54,13 +55,17 @@
     <string name="title_activity_belajaryuk_order">BelajaryukOrderActivity</string>
     <string name="title_activity_belajaryuk_order_confirm">BelajaryukOrderConfirmActivity</string>
     <string name="title_activity_bacayuk">BacayukActivity</string>
+    <string name="title_activity_bacayuk_detail">DetailBacayukActivity</string>
     <string name="title_activity_kesiniyuk">KesiniyukActivity</string>
-    <string name="title_activity_detail_bacayuk">DetailBacayukActivity</string>
-    <string name="title_activity_detail_kesiniyuk">DetailKesiniyukActivity</string>
+    <string name="title_activity_kesiniyuk_detail">DetailKesiniyukActivity</string>
     <string name="title_activity_donasiyuk">DonasiyukActivity</string>
+    <string name="title_activity_donasiyuk_detail">DonasiyukDetailActivity</string>
     <string name="title_activity_diskusiyuk">DiskusiyukActivity</string>
-    <string name="title_activity_pelajaran_diskusiyuk">DiskusiyukPelajaranActivity</string>
-    <string name="title_activity_detail_diskusiyuk">DiskusiyukDetailActivity</string>
+    <string name="title_activity_diskusiyuk_pelajaran">DiskusiyukPelajaranActivity</string>
+    <string name="title_activity_diskusiyuk_detail">DiskusiyukDetailActivity</string>
+    <!-- Pengajar -->
+    <string name="title_activity_pengajar_confirm">PengajarConfirmActivity</string>
+    <!-- Main menu -->
     <string name="title_fragment_home">Home</string>
     <string name="title_fragment_history">History</string>
     <string name="title_fragment_notification">Notifcations</string>
@@ -71,25 +76,30 @@
     <string name="title_register">Register</string>
     <string name="title_home">Home</string>
     <string name="title_history">History</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_activities">Activities</string>
     <string name="title_profile">Profile</string>
     <!-- Button -->
     <string name="prompt_next">Lanjut</string>
     <string name="prompt_signup">Daftar</string>
     <string name="prompt_signup_now">Belum punya akun? Daftar sekarang</string>
+    <string name="prompt_pelajar">Pelajar</string>
+    <string name="prompt_pengajar">Pengajar</string>
     <string name="prompt_login">Masuk</string>
     <string name="prompt_source">Sumber</string>
     <string name="prompt_report">Laporkan</string>
     <string name="prompt_copy_link">Salin url</string>
     <string name="prompt_search">Cari</string>
     <string name="prompt_show_full_profile">Lihat Profile Lengkap</string>
-    <string name="order_pengajar">Pesan Pengajar</string>
+    <string name="prompt_order_pengajar">Pesan Pengajar</string>
+    <string name="prompt_do_donasi">Donasi Sekarang</string>
     <string name="prompt_course">Mata Pelajaran</string>
     <string name="prompt_teachs">Mengajar</string>
     <string name="prompt_city">Kota</string>
     <string name="prompt_district">Kecamatan</string>
     <string name="prompt_yes">Iya</string>
     <string name="prompt_no">Tidak</string>
+    <string name="prompt_accept">Terima</string>
+    <string name="prompt_decline">Tidak</string>
     <string name="prompt_yes_cancel">Terima kasih telah menggunakan aplikasi kami :)</string>
     <string name="prompt_no_cancel">Terima kasih :)</string>
     <string name="prompt_session">Sesi Belajar</string>
@@ -129,7 +139,7 @@
     <string name="error_incorrect_password">Password salah</string>
     <string name="error_field_required">Harap isi bidang ini</string>
     <string name="already_have_account">Sudah punya akun? Yuk!</string>
-    <string name="error_failed_login">Gagal login</string>
+    <string name="error_failed_login">Unauthorized</string>
     <string name="error_failed_fetch_data">Gagal mengambil data</string>
     <!-- Title App Feature -->
     <string name="title_feature_belajaryuk">Belajar Yuk</string>

@@ -12,7 +12,6 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,24 +39,15 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
     private Context mContext;
     private Unbinder mUnbinder;
 
-    @BindView(R.id.iv_photo_pengajar)
-    CircleImageView mPhotoPengajarImageView;
-    @BindView(R.id.tv_name_pengajar)
-    TextView mNamePengajarTextView;
-    @BindView(R.id.tv_degree_pengajar)
-    TextView mDegreePengajarTextView;
-    @BindView(R.id.tv_city_pengajar)
-    TextView mCityPengajarTextView;
-    @BindView(R.id.tv_bio_pengajar)
-    TextView mBioPengajarTextView;
-    @BindView(R.id.tv_rating_pengajar)
-    TextView mRatingPengajarTextView;
-    @BindView(R.id.tv_review_pengajar)
-    TextView mReviewPengajarTextView;
-    @BindView(R.id.tv_answers_pengajar)
-    TextView mAnswersPengajarTextView;
-    @BindView(R.id.tv_price_pengajar)
-    TextView mPricePengajarTextView;
+    @BindView(R.id.iv_photo_pengajar) CircleImageView mPhotoPengajarImageView;
+    @BindView(R.id.tv_name_pengajar) TextView mNamePengajarTextView;
+    @BindView(R.id.tv_degree_pengajar) TextView mDegreePengajarTextView;
+    @BindView(R.id.tv_city_pengajar) TextView mCityPengajarTextView;
+    @BindView(R.id.tv_bio_pengajar) TextView mBioPengajarTextView;
+    @BindView(R.id.tv_rating_pengajar) TextView mRatingPengajarTextView;
+    @BindView(R.id.tv_review_pengajar) TextView mReviewPengajarTextView;
+    @BindView(R.id.tv_answers_pengajar) TextView mAnswersPengajarTextView;
+    @BindView(R.id.tv_price_pengajar) TextView mPricePengajarTextView;
 
     public static BelajaryukProfileFragmentDialog newInstance(Pengajar pengajar) {
         BelajaryukProfileFragmentDialog fragmentDialog = new BelajaryukProfileFragmentDialog();
@@ -101,11 +91,8 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
             String ratingPengajar = getRatingPengajar(getPengajarData().getUlasans().getUlasans());
             int reviewPengajar = getPengajarData().getUlasans().getUlasans().size();
             int answersPengajar = getPengajarData().getJawabans().getJawabans().size();
-            Glide.with(mContext)
-                    .load(photoPengajar)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(mPhotoPengajarImageView);
+            int pricePengajar = getPengajarData().getTarif();
+            Glide.with(mContext).load(photoPengajar).asBitmap().centerCrop().into(mPhotoPengajarImageView);
             mNamePengajarTextView.setText(namePengajar);
             mDegreePengajarTextView.setText(degreePengajar);
             mCityPengajarTextView.setText(cityPengajar);
@@ -113,6 +100,7 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
             mRatingPengajarTextView.setText(ratingPengajar);
             mReviewPengajarTextView.setText(String.valueOf(reviewPengajar));
             mAnswersPengajarTextView.setText(String.valueOf(answersPengajar));
+            mPricePengajarTextView.setText(String.valueOf(pricePengajar));
         }
     }
 
@@ -127,7 +115,7 @@ public class BelajaryukProfileFragmentDialog extends DialogFragment {
 
     @OnClick(R.id.btn_order_pengajar)
     public void doOrderPengajar(View view) {
-        Intent intent = BelajaryukOrderConfirmActivity.getStartIntent(mContext);
+        Intent intent = BelajaryukOrderDetailActivity.getStartIntent(mContext);
         intent.putExtra("keyPengajar", getPengajarData());
         startActivity(intent);
     }

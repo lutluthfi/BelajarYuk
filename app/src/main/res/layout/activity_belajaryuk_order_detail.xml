@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.belajaryuk.BelajaryukOrderConfirmActivity">
+    tools:context=".ui.belajaryuk.BelajaryukOrderDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        android:id="@+id/belajaryuk_order_confirm_content"
+        android:id="@+id/belajaryuk_order_detail_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -30,8 +30,7 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
-            android:orientation="vertical">
+            android:layout_weight="10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,14 +66,14 @@
                                 android:text="@string/prompt_course" />
 
                             <TextView
-                                android:id="@+id/tv_change_courses"
+                                android:id="@+id/tv_change_course"
                                 style="@style/MyBodyTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
+                                android:onClick="changeCourse"
                                 android:padding="@dimen/_8sdp"
                                 android:text="@string/prompt_change"
-                                android:onClick="changeCourse"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorSoftYellow"
                                 tools:ignore="RelativeOverlap" />
@@ -87,7 +86,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_courses"
+                                android:id="@+id/tv_course"
                                 style="@style/MyBodyTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -100,15 +99,15 @@
                                 tools:ignore="UnusedAttribute" />
 
                             <TextView
-                                android:id="@+id/tv_add_desc_courses"
+                                android:id="@+id/tv_add_desc_course"
                                 style="@style/MyBodyTextView"
-                                android:onClick="addDescriptionCourse"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="@dimen/_8sdp"
                                 android:drawableStart="@drawable/ic_edit"
                                 android:drawableTint="@color/colorSoftLightBlue"
                                 android:gravity="center_vertical"
+                                android:onClick="addDescriptionCourse"
                                 android:paddingBottom="@dimen/_8sdp"
                                 android:paddingEnd="@dimen/_8sdp"
                                 android:paddingStart="@dimen/_8sdp"
@@ -116,6 +115,23 @@
                                 android:textAllCaps="false"
                                 android:textColor="@color/colorAccent"
                                 tools:ignore="UnusedAttribute" />
+
+                            <EditText
+                                android:id="@+id/et_desc_course"
+                                style="@style/MyThemeEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/prompt_course"
+                                android:inputType="textMultiLine"
+                                android:maxLines="4"
+                                android:paddingBottom="@dimen/_8sdp"
+                                android:paddingLeft="@dimen/_8sdp"
+                                android:paddingRight="@dimen/_8sdp"
+                                android:textSize="@dimen/_12sdp"
+                                android:visibility="gone"
+                                tools:ignore="labelFor" />
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -147,19 +163,6 @@
                                 android:layout_alignParentStart="true"
                                 android:padding="@dimen/_8sdp"
                                 android:text="@string/prompt_session" />
-
-                            <TextView
-                                android:id="@+id/tv_change_session"
-                                style="@style/MyBodyTextView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:padding="@dimen/_8sdp"
-                                android:text="@string/prompt_change"
-                                android:onClick="changeSession"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorSoftYellow"
-                                tools:ignore="RelativeOverlap" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -179,6 +182,34 @@
                                 android:padding="@dimen/_8sdp"
                                 android:text="@string/example_number"
                                 tools:ignore="RelativeOverlap,UnusedAttribute" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:orientation="horizontal">
+
+                                <ImageButton
+                                    android:id="@+id/btn_decrease_session"
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_24sdp"
+                                    android:background="@drawable/ic_indeterminate_check_box"
+                                    android:backgroundTint="@color/colorSoftRed"
+                                    android:onClick="decreaseSession"
+                                    tools:ignore="ContentDescription" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_increase_session"
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_24sdp"
+                                    android:layout_marginEnd="@dimen/_4sdp"
+                                    android:layout_marginStart="@dimen/_4sdp"
+                                    android:background="@drawable/ic_add_box"
+                                    android:backgroundTint="@color/colorSoftGreen"
+                                    android:onClick="increaseSession"
+                                    tools:ignore="ContentDescription" />
+                            </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -217,8 +248,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:padding="@dimen/_8sdp"
                                 android:onClick="changeLocation"
+                                android:padding="@dimen/_8sdp"
                                 android:text="@string/prompt_change"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorSoftYellow"
@@ -252,10 +283,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="@dimen/_8sdp"
-                                android:onClick="addInformationLocation"
                                 android:drawableStart="@drawable/ic_edit"
                                 android:drawableTint="@color/colorSoftLightBlue"
                                 android:gravity="center_vertical"
+                                android:onClick="addInformationLocation"
                                 android:paddingBottom="@dimen/_8sdp"
                                 android:paddingEnd="@dimen/_8sdp"
                                 android:paddingStart="@dimen/_8sdp"
@@ -263,6 +294,23 @@
                                 android:textAllCaps="false"
                                 android:textColor="@color/colorAccent"
                                 tools:ignore="UnusedAttribute" />
+
+                            <EditText
+                                android:id="@+id/et_inform_location"
+                                style="@style/MyThemeEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/prompt_course"
+                                android:inputType="textMultiLine"
+                                android:maxLines="4"
+                                android:paddingBottom="@dimen/_8sdp"
+                                android:paddingLeft="@dimen/_8sdp"
+                                android:paddingRight="@dimen/_8sdp"
+                                android:textSize="@dimen/_12sdp"
+                                android:visibility="gone"
+                                tools:ignore="labelFor" />
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -310,6 +358,7 @@
                                 <RadioButton
                                     android:id="@+id/rb_payment_method_cash"
                                     style="@style/MyBodyTextView"
+                                    android:checked="true"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentStart="true"
@@ -505,7 +554,7 @@
             android:layout_weight="1"
             android:background="@color/colorAccent"
             android:onClick="doOrderPengajar"
-            android:text="@string/order_pengajar"
+            android:text="@string/prompt_order_pengajar"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 

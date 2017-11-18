@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.donasiyuk.DonasiyukActivity">
+    tools:context=".ui.diskusiyuk.DiskusiyukDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -112,6 +112,6 @@
             android:src="@drawable/ic_send"
             android:tint="@color/colorWhite"
             tools:ignore="ContentDescription" />
-    </android.support.v7.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

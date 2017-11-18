@@ -23,11 +23,27 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setAuthorizationKey(String token) {
-        AppPreferencesHelper.with(this).setKeyUserAuthorization(token);
+        AppPreferencesHelper.with(this).setUserAuthorization(token);
     }
 
     public String getAuthorizationKey() {
         return AppPreferencesHelper.with(this).getUserAuthorization();
+    }
+
+    public void setUserLevelKey(String level) {
+        AppPreferencesHelper.with(this).setUserLevel(String.valueOf(level));
+    }
+
+    public String getUserLevelKey() {
+        return AppPreferencesHelper.with(this).getUserLevel();
+    }
+
+    public void setUserCityKey(String city) {
+        AppPreferencesHelper.with(this).setUserCity(city);
+    }
+
+    public String getUserCityKey(){
+        return AppPreferencesHelper.with(this).getUserCity();
     }
 
     public void showSnackbar(View rootView, String message) {

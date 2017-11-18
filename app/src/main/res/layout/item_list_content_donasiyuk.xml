@@ -99,13 +99,13 @@
             style="@style/MyHeaderTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:layout_marginRight="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:paddingLeft="@dimen/_16sdp"
+            android:paddingRight="@dimen/_16sdp"
+            android:paddingTop="@dimen/_8sdp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/lorem"
+            android:text="@string/title"
             android:textStyle="bold" />
 
     </LinearLayout>
